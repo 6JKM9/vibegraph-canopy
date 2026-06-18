@@ -3379,11 +3379,616 @@ export namespace types {
         public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
+    /** Properties of a MessageRegisterProfile. */
+    interface IMessageRegisterProfile {
+
+        /** MessageRegisterProfile ownerAddress */
+        ownerAddress?: (Uint8Array|null);
+
+        /** MessageRegisterProfile handle */
+        handle?: (string|null);
+
+        /** MessageRegisterProfile bio */
+        bio?: (string|null);
+    }
+
+    /** Represents a MessageRegisterProfile. */
+    class MessageRegisterProfile implements IMessageRegisterProfile {
+
+        /**
+         * Constructs a new MessageRegisterProfile.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.IMessageRegisterProfile);
+
+        /** MessageRegisterProfile ownerAddress. */
+        public ownerAddress: Uint8Array;
+
+        /** MessageRegisterProfile handle. */
+        public handle: string;
+
+        /** MessageRegisterProfile bio. */
+        public bio: string;
+
+        /**
+         * Creates a new MessageRegisterProfile instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MessageRegisterProfile instance
+         */
+        public static create(properties?: types.IMessageRegisterProfile): types.MessageRegisterProfile;
+
+        /**
+         * Encodes the specified MessageRegisterProfile message. Does not implicitly {@link types.MessageRegisterProfile.verify|verify} messages.
+         * @param message MessageRegisterProfile message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.IMessageRegisterProfile, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MessageRegisterProfile message, length delimited. Does not implicitly {@link types.MessageRegisterProfile.verify|verify} messages.
+         * @param message MessageRegisterProfile message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.IMessageRegisterProfile, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MessageRegisterProfile message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MessageRegisterProfile
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.MessageRegisterProfile;
+
+        /**
+         * Decodes a MessageRegisterProfile message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MessageRegisterProfile
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.MessageRegisterProfile;
+
+        /**
+         * Verifies a MessageRegisterProfile message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MessageRegisterProfile message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MessageRegisterProfile
+         */
+        public static fromObject(object: { [k: string]: any }): types.MessageRegisterProfile;
+
+        /**
+         * Creates a plain object from a MessageRegisterProfile message. Also converts values to other types if specified.
+         * @param message MessageRegisterProfile
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.MessageRegisterProfile, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MessageRegisterProfile to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MessageRegisterProfile
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a MessageGiveVibe. */
+    interface IMessageGiveVibe {
+
+        /** MessageGiveVibe fromAddress */
+        fromAddress?: (Uint8Array|null);
+
+        /** MessageGiveVibe toAddress */
+        toAddress?: (Uint8Array|null);
+
+        /** MessageGiveVibe amount */
+        amount?: (number|Long|null);
+
+        /** MessageGiveVibe tag */
+        tag?: (string|null);
+
+        /** MessageGiveVibe note */
+        note?: (string|null);
+    }
+
+    /** Represents a MessageGiveVibe. */
+    class MessageGiveVibe implements IMessageGiveVibe {
+
+        /**
+         * Constructs a new MessageGiveVibe.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.IMessageGiveVibe);
+
+        /** MessageGiveVibe fromAddress. */
+        public fromAddress: Uint8Array;
+
+        /** MessageGiveVibe toAddress. */
+        public toAddress: Uint8Array;
+
+        /** MessageGiveVibe amount. */
+        public amount: (number|Long);
+
+        /** MessageGiveVibe tag. */
+        public tag: string;
+
+        /** MessageGiveVibe note. */
+        public note: string;
+
+        /**
+         * Creates a new MessageGiveVibe instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MessageGiveVibe instance
+         */
+        public static create(properties?: types.IMessageGiveVibe): types.MessageGiveVibe;
+
+        /**
+         * Encodes the specified MessageGiveVibe message. Does not implicitly {@link types.MessageGiveVibe.verify|verify} messages.
+         * @param message MessageGiveVibe message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.IMessageGiveVibe, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MessageGiveVibe message, length delimited. Does not implicitly {@link types.MessageGiveVibe.verify|verify} messages.
+         * @param message MessageGiveVibe message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.IMessageGiveVibe, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MessageGiveVibe message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MessageGiveVibe
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.MessageGiveVibe;
+
+        /**
+         * Decodes a MessageGiveVibe message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MessageGiveVibe
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.MessageGiveVibe;
+
+        /**
+         * Verifies a MessageGiveVibe message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MessageGiveVibe message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MessageGiveVibe
+         */
+        public static fromObject(object: { [k: string]: any }): types.MessageGiveVibe;
+
+        /**
+         * Creates a plain object from a MessageGiveVibe message. Also converts values to other types if specified.
+         * @param message MessageGiveVibe
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.MessageGiveVibe, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MessageGiveVibe to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MessageGiveVibe
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a SocialProfile. */
+    interface ISocialProfile {
+
+        /** SocialProfile ownerAddress */
+        ownerAddress?: (Uint8Array|null);
+
+        /** SocialProfile handle */
+        handle?: (string|null);
+
+        /** SocialProfile bio */
+        bio?: (string|null);
+
+        /** SocialProfile vibeScore */
+        vibeScore?: (number|Long|null);
+
+        /** SocialProfile vibesGiven */
+        vibesGiven?: (number|Long|null);
+
+        /** SocialProfile vibesReceived */
+        vibesReceived?: (number|Long|null);
+
+        /** SocialProfile createdHeight */
+        createdHeight?: (number|Long|null);
+
+        /** SocialProfile updatedHeight */
+        updatedHeight?: (number|Long|null);
+    }
+
+    /** Represents a SocialProfile. */
+    class SocialProfile implements ISocialProfile {
+
+        /**
+         * Constructs a new SocialProfile.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.ISocialProfile);
+
+        /** SocialProfile ownerAddress. */
+        public ownerAddress: Uint8Array;
+
+        /** SocialProfile handle. */
+        public handle: string;
+
+        /** SocialProfile bio. */
+        public bio: string;
+
+        /** SocialProfile vibeScore. */
+        public vibeScore: (number|Long);
+
+        /** SocialProfile vibesGiven. */
+        public vibesGiven: (number|Long);
+
+        /** SocialProfile vibesReceived. */
+        public vibesReceived: (number|Long);
+
+        /** SocialProfile createdHeight. */
+        public createdHeight: (number|Long);
+
+        /** SocialProfile updatedHeight. */
+        public updatedHeight: (number|Long);
+
+        /**
+         * Creates a new SocialProfile instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns SocialProfile instance
+         */
+        public static create(properties?: types.ISocialProfile): types.SocialProfile;
+
+        /**
+         * Encodes the specified SocialProfile message. Does not implicitly {@link types.SocialProfile.verify|verify} messages.
+         * @param message SocialProfile message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.ISocialProfile, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified SocialProfile message, length delimited. Does not implicitly {@link types.SocialProfile.verify|verify} messages.
+         * @param message SocialProfile message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.ISocialProfile, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a SocialProfile message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns SocialProfile
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.SocialProfile;
+
+        /**
+         * Decodes a SocialProfile message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns SocialProfile
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.SocialProfile;
+
+        /**
+         * Verifies a SocialProfile message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a SocialProfile message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns SocialProfile
+         */
+        public static fromObject(object: { [k: string]: any }): types.SocialProfile;
+
+        /**
+         * Creates a plain object from a SocialProfile message. Also converts values to other types if specified.
+         * @param message SocialProfile
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.SocialProfile, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this SocialProfile to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for SocialProfile
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a VibeAttestation. */
+    interface IVibeAttestation {
+
+        /** VibeAttestation id */
+        id?: (number|Long|null);
+
+        /** VibeAttestation fromAddress */
+        fromAddress?: (Uint8Array|null);
+
+        /** VibeAttestation toAddress */
+        toAddress?: (Uint8Array|null);
+
+        /** VibeAttestation amount */
+        amount?: (number|Long|null);
+
+        /** VibeAttestation tag */
+        tag?: (string|null);
+
+        /** VibeAttestation note */
+        note?: (string|null);
+
+        /** VibeAttestation height */
+        height?: (number|Long|null);
+    }
+
+    /** Represents a VibeAttestation. */
+    class VibeAttestation implements IVibeAttestation {
+
+        /**
+         * Constructs a new VibeAttestation.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.IVibeAttestation);
+
+        /** VibeAttestation id. */
+        public id: (number|Long);
+
+        /** VibeAttestation fromAddress. */
+        public fromAddress: Uint8Array;
+
+        /** VibeAttestation toAddress. */
+        public toAddress: Uint8Array;
+
+        /** VibeAttestation amount. */
+        public amount: (number|Long);
+
+        /** VibeAttestation tag. */
+        public tag: string;
+
+        /** VibeAttestation note. */
+        public note: string;
+
+        /** VibeAttestation height. */
+        public height: (number|Long);
+
+        /**
+         * Creates a new VibeAttestation instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns VibeAttestation instance
+         */
+        public static create(properties?: types.IVibeAttestation): types.VibeAttestation;
+
+        /**
+         * Encodes the specified VibeAttestation message. Does not implicitly {@link types.VibeAttestation.verify|verify} messages.
+         * @param message VibeAttestation message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.IVibeAttestation, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified VibeAttestation message, length delimited. Does not implicitly {@link types.VibeAttestation.verify|verify} messages.
+         * @param message VibeAttestation message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.IVibeAttestation, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a VibeAttestation message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns VibeAttestation
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.VibeAttestation;
+
+        /**
+         * Decodes a VibeAttestation message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns VibeAttestation
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.VibeAttestation;
+
+        /**
+         * Verifies a VibeAttestation message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a VibeAttestation message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns VibeAttestation
+         */
+        public static fromObject(object: { [k: string]: any }): types.VibeAttestation;
+
+        /**
+         * Creates a plain object from a VibeAttestation message. Also converts values to other types if specified.
+         * @param message VibeAttestation
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.VibeAttestation, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this VibeAttestation to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for VibeAttestation
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a VibeCounter. */
+    interface IVibeCounter {
+
+        /** VibeCounter nextId */
+        nextId?: (number|Long|null);
+    }
+
+    /** Represents a VibeCounter. */
+    class VibeCounter implements IVibeCounter {
+
+        /**
+         * Constructs a new VibeCounter.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.IVibeCounter);
+
+        /** VibeCounter nextId. */
+        public nextId: (number|Long);
+
+        /**
+         * Creates a new VibeCounter instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns VibeCounter instance
+         */
+        public static create(properties?: types.IVibeCounter): types.VibeCounter;
+
+        /**
+         * Encodes the specified VibeCounter message. Does not implicitly {@link types.VibeCounter.verify|verify} messages.
+         * @param message VibeCounter message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.IVibeCounter, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified VibeCounter message, length delimited. Does not implicitly {@link types.VibeCounter.verify|verify} messages.
+         * @param message VibeCounter message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.IVibeCounter, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a VibeCounter message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns VibeCounter
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.VibeCounter;
+
+        /**
+         * Decodes a VibeCounter message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns VibeCounter
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.VibeCounter;
+
+        /**
+         * Verifies a VibeCounter message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a VibeCounter message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns VibeCounter
+         */
+        public static fromObject(object: { [k: string]: any }): types.VibeCounter;
+
+        /**
+         * Creates a plain object from a VibeCounter message. Also converts values to other types if specified.
+         * @param message VibeCounter
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.VibeCounter, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this VibeCounter to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for VibeCounter
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
     /** Properties of a FeeParams. */
     interface IFeeParams {
 
         /** FeeParams sendFee */
         sendFee?: (number|Long|null);
+
+        /** FeeParams registerProfileFee */
+        registerProfileFee?: (number|Long|null);
+
+        /** FeeParams giveVibeFee */
+        giveVibeFee?: (number|Long|null);
     }
 
     /** Represents a FeeParams. */
@@ -3397,6 +4002,12 @@ export namespace types {
 
         /** FeeParams sendFee. */
         public sendFee: (number|Long);
+
+        /** FeeParams registerProfileFee. */
+        public registerProfileFee: (number|Long);
+
+        /** FeeParams giveVibeFee. */
+        public giveVibeFee: (number|Long);
 
         /**
          * Creates a new FeeParams instance using the specified properties.

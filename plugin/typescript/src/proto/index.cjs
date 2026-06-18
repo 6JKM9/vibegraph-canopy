@@ -8828,6 +8828,1666 @@ $root.types = (function() {
         return MessageSend;
     })();
 
+    types.MessageRegisterProfile = (function() {
+
+        /**
+         * Properties of a MessageRegisterProfile.
+         * @memberof types
+         * @interface IMessageRegisterProfile
+         * @property {Uint8Array|null} [ownerAddress] MessageRegisterProfile ownerAddress
+         * @property {string|null} [handle] MessageRegisterProfile handle
+         * @property {string|null} [bio] MessageRegisterProfile bio
+         */
+
+        /**
+         * Constructs a new MessageRegisterProfile.
+         * @memberof types
+         * @classdesc Represents a MessageRegisterProfile.
+         * @implements IMessageRegisterProfile
+         * @constructor
+         * @param {types.IMessageRegisterProfile=} [properties] Properties to set
+         */
+        function MessageRegisterProfile(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MessageRegisterProfile ownerAddress.
+         * @member {Uint8Array} ownerAddress
+         * @memberof types.MessageRegisterProfile
+         * @instance
+         */
+        MessageRegisterProfile.prototype.ownerAddress = $util.newBuffer([]);
+
+        /**
+         * MessageRegisterProfile handle.
+         * @member {string} handle
+         * @memberof types.MessageRegisterProfile
+         * @instance
+         */
+        MessageRegisterProfile.prototype.handle = "";
+
+        /**
+         * MessageRegisterProfile bio.
+         * @member {string} bio
+         * @memberof types.MessageRegisterProfile
+         * @instance
+         */
+        MessageRegisterProfile.prototype.bio = "";
+
+        /**
+         * Creates a new MessageRegisterProfile instance using the specified properties.
+         * @function create
+         * @memberof types.MessageRegisterProfile
+         * @static
+         * @param {types.IMessageRegisterProfile=} [properties] Properties to set
+         * @returns {types.MessageRegisterProfile} MessageRegisterProfile instance
+         */
+        MessageRegisterProfile.create = function create(properties) {
+            return new MessageRegisterProfile(properties);
+        };
+
+        /**
+         * Encodes the specified MessageRegisterProfile message. Does not implicitly {@link types.MessageRegisterProfile.verify|verify} messages.
+         * @function encode
+         * @memberof types.MessageRegisterProfile
+         * @static
+         * @param {types.IMessageRegisterProfile} message MessageRegisterProfile message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageRegisterProfile.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.ownerAddress != null && Object.hasOwnProperty.call(message, "ownerAddress"))
+                writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.ownerAddress);
+            if (message.handle != null && Object.hasOwnProperty.call(message, "handle"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.handle);
+            if (message.bio != null && Object.hasOwnProperty.call(message, "bio"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.bio);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MessageRegisterProfile message, length delimited. Does not implicitly {@link types.MessageRegisterProfile.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.MessageRegisterProfile
+         * @static
+         * @param {types.IMessageRegisterProfile} message MessageRegisterProfile message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageRegisterProfile.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MessageRegisterProfile message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.MessageRegisterProfile
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.MessageRegisterProfile} MessageRegisterProfile
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageRegisterProfile.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.MessageRegisterProfile();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.ownerAddress = reader.bytes();
+                        break;
+                    }
+                case 2: {
+                        message.handle = reader.string();
+                        break;
+                    }
+                case 3: {
+                        message.bio = reader.string();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MessageRegisterProfile message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.MessageRegisterProfile
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.MessageRegisterProfile} MessageRegisterProfile
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageRegisterProfile.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MessageRegisterProfile message.
+         * @function verify
+         * @memberof types.MessageRegisterProfile
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MessageRegisterProfile.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.ownerAddress != null && message.hasOwnProperty("ownerAddress"))
+                if (!(message.ownerAddress && typeof message.ownerAddress.length === "number" || $util.isString(message.ownerAddress)))
+                    return "ownerAddress: buffer expected";
+            if (message.handle != null && message.hasOwnProperty("handle"))
+                if (!$util.isString(message.handle))
+                    return "handle: string expected";
+            if (message.bio != null && message.hasOwnProperty("bio"))
+                if (!$util.isString(message.bio))
+                    return "bio: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a MessageRegisterProfile message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.MessageRegisterProfile
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.MessageRegisterProfile} MessageRegisterProfile
+         */
+        MessageRegisterProfile.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.MessageRegisterProfile)
+                return object;
+            var message = new $root.types.MessageRegisterProfile();
+            if (object.ownerAddress != null)
+                if (typeof object.ownerAddress === "string")
+                    $util.base64.decode(object.ownerAddress, message.ownerAddress = $util.newBuffer($util.base64.length(object.ownerAddress)), 0);
+                else if (object.ownerAddress.length >= 0)
+                    message.ownerAddress = object.ownerAddress;
+            if (object.handle != null)
+                message.handle = String(object.handle);
+            if (object.bio != null)
+                message.bio = String(object.bio);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MessageRegisterProfile message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.MessageRegisterProfile
+         * @static
+         * @param {types.MessageRegisterProfile} message MessageRegisterProfile
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MessageRegisterProfile.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if (options.bytes === String)
+                    object.ownerAddress = "";
+                else {
+                    object.ownerAddress = [];
+                    if (options.bytes !== Array)
+                        object.ownerAddress = $util.newBuffer(object.ownerAddress);
+                }
+                object.handle = "";
+                object.bio = "";
+            }
+            if (message.ownerAddress != null && message.hasOwnProperty("ownerAddress"))
+                object.ownerAddress = options.bytes === String ? $util.base64.encode(message.ownerAddress, 0, message.ownerAddress.length) : options.bytes === Array ? Array.prototype.slice.call(message.ownerAddress) : message.ownerAddress;
+            if (message.handle != null && message.hasOwnProperty("handle"))
+                object.handle = message.handle;
+            if (message.bio != null && message.hasOwnProperty("bio"))
+                object.bio = message.bio;
+            return object;
+        };
+
+        /**
+         * Converts this MessageRegisterProfile to JSON.
+         * @function toJSON
+         * @memberof types.MessageRegisterProfile
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MessageRegisterProfile.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for MessageRegisterProfile
+         * @function getTypeUrl
+         * @memberof types.MessageRegisterProfile
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        MessageRegisterProfile.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.MessageRegisterProfile";
+        };
+
+        return MessageRegisterProfile;
+    })();
+
+    types.MessageGiveVibe = (function() {
+
+        /**
+         * Properties of a MessageGiveVibe.
+         * @memberof types
+         * @interface IMessageGiveVibe
+         * @property {Uint8Array|null} [fromAddress] MessageGiveVibe fromAddress
+         * @property {Uint8Array|null} [toAddress] MessageGiveVibe toAddress
+         * @property {number|Long|null} [amount] MessageGiveVibe amount
+         * @property {string|null} [tag] MessageGiveVibe tag
+         * @property {string|null} [note] MessageGiveVibe note
+         */
+
+        /**
+         * Constructs a new MessageGiveVibe.
+         * @memberof types
+         * @classdesc Represents a MessageGiveVibe.
+         * @implements IMessageGiveVibe
+         * @constructor
+         * @param {types.IMessageGiveVibe=} [properties] Properties to set
+         */
+        function MessageGiveVibe(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MessageGiveVibe fromAddress.
+         * @member {Uint8Array} fromAddress
+         * @memberof types.MessageGiveVibe
+         * @instance
+         */
+        MessageGiveVibe.prototype.fromAddress = $util.newBuffer([]);
+
+        /**
+         * MessageGiveVibe toAddress.
+         * @member {Uint8Array} toAddress
+         * @memberof types.MessageGiveVibe
+         * @instance
+         */
+        MessageGiveVibe.prototype.toAddress = $util.newBuffer([]);
+
+        /**
+         * MessageGiveVibe amount.
+         * @member {number|Long} amount
+         * @memberof types.MessageGiveVibe
+         * @instance
+         */
+        MessageGiveVibe.prototype.amount = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * MessageGiveVibe tag.
+         * @member {string} tag
+         * @memberof types.MessageGiveVibe
+         * @instance
+         */
+        MessageGiveVibe.prototype.tag = "";
+
+        /**
+         * MessageGiveVibe note.
+         * @member {string} note
+         * @memberof types.MessageGiveVibe
+         * @instance
+         */
+        MessageGiveVibe.prototype.note = "";
+
+        /**
+         * Creates a new MessageGiveVibe instance using the specified properties.
+         * @function create
+         * @memberof types.MessageGiveVibe
+         * @static
+         * @param {types.IMessageGiveVibe=} [properties] Properties to set
+         * @returns {types.MessageGiveVibe} MessageGiveVibe instance
+         */
+        MessageGiveVibe.create = function create(properties) {
+            return new MessageGiveVibe(properties);
+        };
+
+        /**
+         * Encodes the specified MessageGiveVibe message. Does not implicitly {@link types.MessageGiveVibe.verify|verify} messages.
+         * @function encode
+         * @memberof types.MessageGiveVibe
+         * @static
+         * @param {types.IMessageGiveVibe} message MessageGiveVibe message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageGiveVibe.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.fromAddress != null && Object.hasOwnProperty.call(message, "fromAddress"))
+                writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.fromAddress);
+            if (message.toAddress != null && Object.hasOwnProperty.call(message, "toAddress"))
+                writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.toAddress);
+            if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.amount);
+            if (message.tag != null && Object.hasOwnProperty.call(message, "tag"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.tag);
+            if (message.note != null && Object.hasOwnProperty.call(message, "note"))
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.note);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MessageGiveVibe message, length delimited. Does not implicitly {@link types.MessageGiveVibe.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.MessageGiveVibe
+         * @static
+         * @param {types.IMessageGiveVibe} message MessageGiveVibe message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageGiveVibe.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MessageGiveVibe message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.MessageGiveVibe
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.MessageGiveVibe} MessageGiveVibe
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageGiveVibe.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.MessageGiveVibe();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.fromAddress = reader.bytes();
+                        break;
+                    }
+                case 2: {
+                        message.toAddress = reader.bytes();
+                        break;
+                    }
+                case 3: {
+                        message.amount = reader.uint64();
+                        break;
+                    }
+                case 4: {
+                        message.tag = reader.string();
+                        break;
+                    }
+                case 5: {
+                        message.note = reader.string();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MessageGiveVibe message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.MessageGiveVibe
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.MessageGiveVibe} MessageGiveVibe
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageGiveVibe.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MessageGiveVibe message.
+         * @function verify
+         * @memberof types.MessageGiveVibe
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MessageGiveVibe.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.fromAddress != null && message.hasOwnProperty("fromAddress"))
+                if (!(message.fromAddress && typeof message.fromAddress.length === "number" || $util.isString(message.fromAddress)))
+                    return "fromAddress: buffer expected";
+            if (message.toAddress != null && message.hasOwnProperty("toAddress"))
+                if (!(message.toAddress && typeof message.toAddress.length === "number" || $util.isString(message.toAddress)))
+                    return "toAddress: buffer expected";
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                if (!$util.isInteger(message.amount) && !(message.amount && $util.isInteger(message.amount.low) && $util.isInteger(message.amount.high)))
+                    return "amount: integer|Long expected";
+            if (message.tag != null && message.hasOwnProperty("tag"))
+                if (!$util.isString(message.tag))
+                    return "tag: string expected";
+            if (message.note != null && message.hasOwnProperty("note"))
+                if (!$util.isString(message.note))
+                    return "note: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a MessageGiveVibe message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.MessageGiveVibe
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.MessageGiveVibe} MessageGiveVibe
+         */
+        MessageGiveVibe.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.MessageGiveVibe)
+                return object;
+            var message = new $root.types.MessageGiveVibe();
+            if (object.fromAddress != null)
+                if (typeof object.fromAddress === "string")
+                    $util.base64.decode(object.fromAddress, message.fromAddress = $util.newBuffer($util.base64.length(object.fromAddress)), 0);
+                else if (object.fromAddress.length >= 0)
+                    message.fromAddress = object.fromAddress;
+            if (object.toAddress != null)
+                if (typeof object.toAddress === "string")
+                    $util.base64.decode(object.toAddress, message.toAddress = $util.newBuffer($util.base64.length(object.toAddress)), 0);
+                else if (object.toAddress.length >= 0)
+                    message.toAddress = object.toAddress;
+            if (object.amount != null)
+                if ($util.Long)
+                    (message.amount = $util.Long.fromValue(object.amount)).unsigned = true;
+                else if (typeof object.amount === "string")
+                    message.amount = parseInt(object.amount, 10);
+                else if (typeof object.amount === "number")
+                    message.amount = object.amount;
+                else if (typeof object.amount === "object")
+                    message.amount = new $util.LongBits(object.amount.low >>> 0, object.amount.high >>> 0).toNumber(true);
+            if (object.tag != null)
+                message.tag = String(object.tag);
+            if (object.note != null)
+                message.note = String(object.note);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MessageGiveVibe message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.MessageGiveVibe
+         * @static
+         * @param {types.MessageGiveVibe} message MessageGiveVibe
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MessageGiveVibe.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if (options.bytes === String)
+                    object.fromAddress = "";
+                else {
+                    object.fromAddress = [];
+                    if (options.bytes !== Array)
+                        object.fromAddress = $util.newBuffer(object.fromAddress);
+                }
+                if (options.bytes === String)
+                    object.toAddress = "";
+                else {
+                    object.toAddress = [];
+                    if (options.bytes !== Array)
+                        object.toAddress = $util.newBuffer(object.toAddress);
+                }
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.amount = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.amount = options.longs === String ? "0" : 0;
+                object.tag = "";
+                object.note = "";
+            }
+            if (message.fromAddress != null && message.hasOwnProperty("fromAddress"))
+                object.fromAddress = options.bytes === String ? $util.base64.encode(message.fromAddress, 0, message.fromAddress.length) : options.bytes === Array ? Array.prototype.slice.call(message.fromAddress) : message.fromAddress;
+            if (message.toAddress != null && message.hasOwnProperty("toAddress"))
+                object.toAddress = options.bytes === String ? $util.base64.encode(message.toAddress, 0, message.toAddress.length) : options.bytes === Array ? Array.prototype.slice.call(message.toAddress) : message.toAddress;
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                if (typeof message.amount === "number")
+                    object.amount = options.longs === String ? String(message.amount) : message.amount;
+                else
+                    object.amount = options.longs === String ? $util.Long.prototype.toString.call(message.amount) : options.longs === Number ? new $util.LongBits(message.amount.low >>> 0, message.amount.high >>> 0).toNumber(true) : message.amount;
+            if (message.tag != null && message.hasOwnProperty("tag"))
+                object.tag = message.tag;
+            if (message.note != null && message.hasOwnProperty("note"))
+                object.note = message.note;
+            return object;
+        };
+
+        /**
+         * Converts this MessageGiveVibe to JSON.
+         * @function toJSON
+         * @memberof types.MessageGiveVibe
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MessageGiveVibe.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for MessageGiveVibe
+         * @function getTypeUrl
+         * @memberof types.MessageGiveVibe
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        MessageGiveVibe.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.MessageGiveVibe";
+        };
+
+        return MessageGiveVibe;
+    })();
+
+    types.SocialProfile = (function() {
+
+        /**
+         * Properties of a SocialProfile.
+         * @memberof types
+         * @interface ISocialProfile
+         * @property {Uint8Array|null} [ownerAddress] SocialProfile ownerAddress
+         * @property {string|null} [handle] SocialProfile handle
+         * @property {string|null} [bio] SocialProfile bio
+         * @property {number|Long|null} [vibeScore] SocialProfile vibeScore
+         * @property {number|Long|null} [vibesGiven] SocialProfile vibesGiven
+         * @property {number|Long|null} [vibesReceived] SocialProfile vibesReceived
+         * @property {number|Long|null} [createdHeight] SocialProfile createdHeight
+         * @property {number|Long|null} [updatedHeight] SocialProfile updatedHeight
+         */
+
+        /**
+         * Constructs a new SocialProfile.
+         * @memberof types
+         * @classdesc Represents a SocialProfile.
+         * @implements ISocialProfile
+         * @constructor
+         * @param {types.ISocialProfile=} [properties] Properties to set
+         */
+        function SocialProfile(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * SocialProfile ownerAddress.
+         * @member {Uint8Array} ownerAddress
+         * @memberof types.SocialProfile
+         * @instance
+         */
+        SocialProfile.prototype.ownerAddress = $util.newBuffer([]);
+
+        /**
+         * SocialProfile handle.
+         * @member {string} handle
+         * @memberof types.SocialProfile
+         * @instance
+         */
+        SocialProfile.prototype.handle = "";
+
+        /**
+         * SocialProfile bio.
+         * @member {string} bio
+         * @memberof types.SocialProfile
+         * @instance
+         */
+        SocialProfile.prototype.bio = "";
+
+        /**
+         * SocialProfile vibeScore.
+         * @member {number|Long} vibeScore
+         * @memberof types.SocialProfile
+         * @instance
+         */
+        SocialProfile.prototype.vibeScore = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * SocialProfile vibesGiven.
+         * @member {number|Long} vibesGiven
+         * @memberof types.SocialProfile
+         * @instance
+         */
+        SocialProfile.prototype.vibesGiven = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * SocialProfile vibesReceived.
+         * @member {number|Long} vibesReceived
+         * @memberof types.SocialProfile
+         * @instance
+         */
+        SocialProfile.prototype.vibesReceived = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * SocialProfile createdHeight.
+         * @member {number|Long} createdHeight
+         * @memberof types.SocialProfile
+         * @instance
+         */
+        SocialProfile.prototype.createdHeight = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * SocialProfile updatedHeight.
+         * @member {number|Long} updatedHeight
+         * @memberof types.SocialProfile
+         * @instance
+         */
+        SocialProfile.prototype.updatedHeight = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new SocialProfile instance using the specified properties.
+         * @function create
+         * @memberof types.SocialProfile
+         * @static
+         * @param {types.ISocialProfile=} [properties] Properties to set
+         * @returns {types.SocialProfile} SocialProfile instance
+         */
+        SocialProfile.create = function create(properties) {
+            return new SocialProfile(properties);
+        };
+
+        /**
+         * Encodes the specified SocialProfile message. Does not implicitly {@link types.SocialProfile.verify|verify} messages.
+         * @function encode
+         * @memberof types.SocialProfile
+         * @static
+         * @param {types.ISocialProfile} message SocialProfile message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SocialProfile.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.ownerAddress != null && Object.hasOwnProperty.call(message, "ownerAddress"))
+                writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.ownerAddress);
+            if (message.handle != null && Object.hasOwnProperty.call(message, "handle"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.handle);
+            if (message.bio != null && Object.hasOwnProperty.call(message, "bio"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.bio);
+            if (message.vibeScore != null && Object.hasOwnProperty.call(message, "vibeScore"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint64(message.vibeScore);
+            if (message.vibesGiven != null && Object.hasOwnProperty.call(message, "vibesGiven"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint64(message.vibesGiven);
+            if (message.vibesReceived != null && Object.hasOwnProperty.call(message, "vibesReceived"))
+                writer.uint32(/* id 6, wireType 0 =*/48).uint64(message.vibesReceived);
+            if (message.createdHeight != null && Object.hasOwnProperty.call(message, "createdHeight"))
+                writer.uint32(/* id 7, wireType 0 =*/56).uint64(message.createdHeight);
+            if (message.updatedHeight != null && Object.hasOwnProperty.call(message, "updatedHeight"))
+                writer.uint32(/* id 8, wireType 0 =*/64).uint64(message.updatedHeight);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified SocialProfile message, length delimited. Does not implicitly {@link types.SocialProfile.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.SocialProfile
+         * @static
+         * @param {types.ISocialProfile} message SocialProfile message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SocialProfile.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a SocialProfile message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.SocialProfile
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.SocialProfile} SocialProfile
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SocialProfile.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.SocialProfile();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.ownerAddress = reader.bytes();
+                        break;
+                    }
+                case 2: {
+                        message.handle = reader.string();
+                        break;
+                    }
+                case 3: {
+                        message.bio = reader.string();
+                        break;
+                    }
+                case 4: {
+                        message.vibeScore = reader.uint64();
+                        break;
+                    }
+                case 5: {
+                        message.vibesGiven = reader.uint64();
+                        break;
+                    }
+                case 6: {
+                        message.vibesReceived = reader.uint64();
+                        break;
+                    }
+                case 7: {
+                        message.createdHeight = reader.uint64();
+                        break;
+                    }
+                case 8: {
+                        message.updatedHeight = reader.uint64();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a SocialProfile message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.SocialProfile
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.SocialProfile} SocialProfile
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SocialProfile.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a SocialProfile message.
+         * @function verify
+         * @memberof types.SocialProfile
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        SocialProfile.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.ownerAddress != null && message.hasOwnProperty("ownerAddress"))
+                if (!(message.ownerAddress && typeof message.ownerAddress.length === "number" || $util.isString(message.ownerAddress)))
+                    return "ownerAddress: buffer expected";
+            if (message.handle != null && message.hasOwnProperty("handle"))
+                if (!$util.isString(message.handle))
+                    return "handle: string expected";
+            if (message.bio != null && message.hasOwnProperty("bio"))
+                if (!$util.isString(message.bio))
+                    return "bio: string expected";
+            if (message.vibeScore != null && message.hasOwnProperty("vibeScore"))
+                if (!$util.isInteger(message.vibeScore) && !(message.vibeScore && $util.isInteger(message.vibeScore.low) && $util.isInteger(message.vibeScore.high)))
+                    return "vibeScore: integer|Long expected";
+            if (message.vibesGiven != null && message.hasOwnProperty("vibesGiven"))
+                if (!$util.isInteger(message.vibesGiven) && !(message.vibesGiven && $util.isInteger(message.vibesGiven.low) && $util.isInteger(message.vibesGiven.high)))
+                    return "vibesGiven: integer|Long expected";
+            if (message.vibesReceived != null && message.hasOwnProperty("vibesReceived"))
+                if (!$util.isInteger(message.vibesReceived) && !(message.vibesReceived && $util.isInteger(message.vibesReceived.low) && $util.isInteger(message.vibesReceived.high)))
+                    return "vibesReceived: integer|Long expected";
+            if (message.createdHeight != null && message.hasOwnProperty("createdHeight"))
+                if (!$util.isInteger(message.createdHeight) && !(message.createdHeight && $util.isInteger(message.createdHeight.low) && $util.isInteger(message.createdHeight.high)))
+                    return "createdHeight: integer|Long expected";
+            if (message.updatedHeight != null && message.hasOwnProperty("updatedHeight"))
+                if (!$util.isInteger(message.updatedHeight) && !(message.updatedHeight && $util.isInteger(message.updatedHeight.low) && $util.isInteger(message.updatedHeight.high)))
+                    return "updatedHeight: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a SocialProfile message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.SocialProfile
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.SocialProfile} SocialProfile
+         */
+        SocialProfile.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.SocialProfile)
+                return object;
+            var message = new $root.types.SocialProfile();
+            if (object.ownerAddress != null)
+                if (typeof object.ownerAddress === "string")
+                    $util.base64.decode(object.ownerAddress, message.ownerAddress = $util.newBuffer($util.base64.length(object.ownerAddress)), 0);
+                else if (object.ownerAddress.length >= 0)
+                    message.ownerAddress = object.ownerAddress;
+            if (object.handle != null)
+                message.handle = String(object.handle);
+            if (object.bio != null)
+                message.bio = String(object.bio);
+            if (object.vibeScore != null)
+                if ($util.Long)
+                    (message.vibeScore = $util.Long.fromValue(object.vibeScore)).unsigned = true;
+                else if (typeof object.vibeScore === "string")
+                    message.vibeScore = parseInt(object.vibeScore, 10);
+                else if (typeof object.vibeScore === "number")
+                    message.vibeScore = object.vibeScore;
+                else if (typeof object.vibeScore === "object")
+                    message.vibeScore = new $util.LongBits(object.vibeScore.low >>> 0, object.vibeScore.high >>> 0).toNumber(true);
+            if (object.vibesGiven != null)
+                if ($util.Long)
+                    (message.vibesGiven = $util.Long.fromValue(object.vibesGiven)).unsigned = true;
+                else if (typeof object.vibesGiven === "string")
+                    message.vibesGiven = parseInt(object.vibesGiven, 10);
+                else if (typeof object.vibesGiven === "number")
+                    message.vibesGiven = object.vibesGiven;
+                else if (typeof object.vibesGiven === "object")
+                    message.vibesGiven = new $util.LongBits(object.vibesGiven.low >>> 0, object.vibesGiven.high >>> 0).toNumber(true);
+            if (object.vibesReceived != null)
+                if ($util.Long)
+                    (message.vibesReceived = $util.Long.fromValue(object.vibesReceived)).unsigned = true;
+                else if (typeof object.vibesReceived === "string")
+                    message.vibesReceived = parseInt(object.vibesReceived, 10);
+                else if (typeof object.vibesReceived === "number")
+                    message.vibesReceived = object.vibesReceived;
+                else if (typeof object.vibesReceived === "object")
+                    message.vibesReceived = new $util.LongBits(object.vibesReceived.low >>> 0, object.vibesReceived.high >>> 0).toNumber(true);
+            if (object.createdHeight != null)
+                if ($util.Long)
+                    (message.createdHeight = $util.Long.fromValue(object.createdHeight)).unsigned = true;
+                else if (typeof object.createdHeight === "string")
+                    message.createdHeight = parseInt(object.createdHeight, 10);
+                else if (typeof object.createdHeight === "number")
+                    message.createdHeight = object.createdHeight;
+                else if (typeof object.createdHeight === "object")
+                    message.createdHeight = new $util.LongBits(object.createdHeight.low >>> 0, object.createdHeight.high >>> 0).toNumber(true);
+            if (object.updatedHeight != null)
+                if ($util.Long)
+                    (message.updatedHeight = $util.Long.fromValue(object.updatedHeight)).unsigned = true;
+                else if (typeof object.updatedHeight === "string")
+                    message.updatedHeight = parseInt(object.updatedHeight, 10);
+                else if (typeof object.updatedHeight === "number")
+                    message.updatedHeight = object.updatedHeight;
+                else if (typeof object.updatedHeight === "object")
+                    message.updatedHeight = new $util.LongBits(object.updatedHeight.low >>> 0, object.updatedHeight.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a SocialProfile message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.SocialProfile
+         * @static
+         * @param {types.SocialProfile} message SocialProfile
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        SocialProfile.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if (options.bytes === String)
+                    object.ownerAddress = "";
+                else {
+                    object.ownerAddress = [];
+                    if (options.bytes !== Array)
+                        object.ownerAddress = $util.newBuffer(object.ownerAddress);
+                }
+                object.handle = "";
+                object.bio = "";
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.vibeScore = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.vibeScore = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.vibesGiven = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.vibesGiven = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.vibesReceived = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.vibesReceived = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.createdHeight = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.createdHeight = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.updatedHeight = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.updatedHeight = options.longs === String ? "0" : 0;
+            }
+            if (message.ownerAddress != null && message.hasOwnProperty("ownerAddress"))
+                object.ownerAddress = options.bytes === String ? $util.base64.encode(message.ownerAddress, 0, message.ownerAddress.length) : options.bytes === Array ? Array.prototype.slice.call(message.ownerAddress) : message.ownerAddress;
+            if (message.handle != null && message.hasOwnProperty("handle"))
+                object.handle = message.handle;
+            if (message.bio != null && message.hasOwnProperty("bio"))
+                object.bio = message.bio;
+            if (message.vibeScore != null && message.hasOwnProperty("vibeScore"))
+                if (typeof message.vibeScore === "number")
+                    object.vibeScore = options.longs === String ? String(message.vibeScore) : message.vibeScore;
+                else
+                    object.vibeScore = options.longs === String ? $util.Long.prototype.toString.call(message.vibeScore) : options.longs === Number ? new $util.LongBits(message.vibeScore.low >>> 0, message.vibeScore.high >>> 0).toNumber(true) : message.vibeScore;
+            if (message.vibesGiven != null && message.hasOwnProperty("vibesGiven"))
+                if (typeof message.vibesGiven === "number")
+                    object.vibesGiven = options.longs === String ? String(message.vibesGiven) : message.vibesGiven;
+                else
+                    object.vibesGiven = options.longs === String ? $util.Long.prototype.toString.call(message.vibesGiven) : options.longs === Number ? new $util.LongBits(message.vibesGiven.low >>> 0, message.vibesGiven.high >>> 0).toNumber(true) : message.vibesGiven;
+            if (message.vibesReceived != null && message.hasOwnProperty("vibesReceived"))
+                if (typeof message.vibesReceived === "number")
+                    object.vibesReceived = options.longs === String ? String(message.vibesReceived) : message.vibesReceived;
+                else
+                    object.vibesReceived = options.longs === String ? $util.Long.prototype.toString.call(message.vibesReceived) : options.longs === Number ? new $util.LongBits(message.vibesReceived.low >>> 0, message.vibesReceived.high >>> 0).toNumber(true) : message.vibesReceived;
+            if (message.createdHeight != null && message.hasOwnProperty("createdHeight"))
+                if (typeof message.createdHeight === "number")
+                    object.createdHeight = options.longs === String ? String(message.createdHeight) : message.createdHeight;
+                else
+                    object.createdHeight = options.longs === String ? $util.Long.prototype.toString.call(message.createdHeight) : options.longs === Number ? new $util.LongBits(message.createdHeight.low >>> 0, message.createdHeight.high >>> 0).toNumber(true) : message.createdHeight;
+            if (message.updatedHeight != null && message.hasOwnProperty("updatedHeight"))
+                if (typeof message.updatedHeight === "number")
+                    object.updatedHeight = options.longs === String ? String(message.updatedHeight) : message.updatedHeight;
+                else
+                    object.updatedHeight = options.longs === String ? $util.Long.prototype.toString.call(message.updatedHeight) : options.longs === Number ? new $util.LongBits(message.updatedHeight.low >>> 0, message.updatedHeight.high >>> 0).toNumber(true) : message.updatedHeight;
+            return object;
+        };
+
+        /**
+         * Converts this SocialProfile to JSON.
+         * @function toJSON
+         * @memberof types.SocialProfile
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        SocialProfile.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for SocialProfile
+         * @function getTypeUrl
+         * @memberof types.SocialProfile
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        SocialProfile.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.SocialProfile";
+        };
+
+        return SocialProfile;
+    })();
+
+    types.VibeAttestation = (function() {
+
+        /**
+         * Properties of a VibeAttestation.
+         * @memberof types
+         * @interface IVibeAttestation
+         * @property {number|Long|null} [id] VibeAttestation id
+         * @property {Uint8Array|null} [fromAddress] VibeAttestation fromAddress
+         * @property {Uint8Array|null} [toAddress] VibeAttestation toAddress
+         * @property {number|Long|null} [amount] VibeAttestation amount
+         * @property {string|null} [tag] VibeAttestation tag
+         * @property {string|null} [note] VibeAttestation note
+         * @property {number|Long|null} [height] VibeAttestation height
+         */
+
+        /**
+         * Constructs a new VibeAttestation.
+         * @memberof types
+         * @classdesc Represents a VibeAttestation.
+         * @implements IVibeAttestation
+         * @constructor
+         * @param {types.IVibeAttestation=} [properties] Properties to set
+         */
+        function VibeAttestation(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * VibeAttestation id.
+         * @member {number|Long} id
+         * @memberof types.VibeAttestation
+         * @instance
+         */
+        VibeAttestation.prototype.id = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * VibeAttestation fromAddress.
+         * @member {Uint8Array} fromAddress
+         * @memberof types.VibeAttestation
+         * @instance
+         */
+        VibeAttestation.prototype.fromAddress = $util.newBuffer([]);
+
+        /**
+         * VibeAttestation toAddress.
+         * @member {Uint8Array} toAddress
+         * @memberof types.VibeAttestation
+         * @instance
+         */
+        VibeAttestation.prototype.toAddress = $util.newBuffer([]);
+
+        /**
+         * VibeAttestation amount.
+         * @member {number|Long} amount
+         * @memberof types.VibeAttestation
+         * @instance
+         */
+        VibeAttestation.prototype.amount = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * VibeAttestation tag.
+         * @member {string} tag
+         * @memberof types.VibeAttestation
+         * @instance
+         */
+        VibeAttestation.prototype.tag = "";
+
+        /**
+         * VibeAttestation note.
+         * @member {string} note
+         * @memberof types.VibeAttestation
+         * @instance
+         */
+        VibeAttestation.prototype.note = "";
+
+        /**
+         * VibeAttestation height.
+         * @member {number|Long} height
+         * @memberof types.VibeAttestation
+         * @instance
+         */
+        VibeAttestation.prototype.height = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new VibeAttestation instance using the specified properties.
+         * @function create
+         * @memberof types.VibeAttestation
+         * @static
+         * @param {types.IVibeAttestation=} [properties] Properties to set
+         * @returns {types.VibeAttestation} VibeAttestation instance
+         */
+        VibeAttestation.create = function create(properties) {
+            return new VibeAttestation(properties);
+        };
+
+        /**
+         * Encodes the specified VibeAttestation message. Does not implicitly {@link types.VibeAttestation.verify|verify} messages.
+         * @function encode
+         * @memberof types.VibeAttestation
+         * @static
+         * @param {types.IVibeAttestation} message VibeAttestation message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        VibeAttestation.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.id);
+            if (message.fromAddress != null && Object.hasOwnProperty.call(message, "fromAddress"))
+                writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.fromAddress);
+            if (message.toAddress != null && Object.hasOwnProperty.call(message, "toAddress"))
+                writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.toAddress);
+            if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint64(message.amount);
+            if (message.tag != null && Object.hasOwnProperty.call(message, "tag"))
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.tag);
+            if (message.note != null && Object.hasOwnProperty.call(message, "note"))
+                writer.uint32(/* id 6, wireType 2 =*/50).string(message.note);
+            if (message.height != null && Object.hasOwnProperty.call(message, "height"))
+                writer.uint32(/* id 7, wireType 0 =*/56).uint64(message.height);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified VibeAttestation message, length delimited. Does not implicitly {@link types.VibeAttestation.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.VibeAttestation
+         * @static
+         * @param {types.IVibeAttestation} message VibeAttestation message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        VibeAttestation.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a VibeAttestation message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.VibeAttestation
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.VibeAttestation} VibeAttestation
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        VibeAttestation.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.VibeAttestation();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.id = reader.uint64();
+                        break;
+                    }
+                case 2: {
+                        message.fromAddress = reader.bytes();
+                        break;
+                    }
+                case 3: {
+                        message.toAddress = reader.bytes();
+                        break;
+                    }
+                case 4: {
+                        message.amount = reader.uint64();
+                        break;
+                    }
+                case 5: {
+                        message.tag = reader.string();
+                        break;
+                    }
+                case 6: {
+                        message.note = reader.string();
+                        break;
+                    }
+                case 7: {
+                        message.height = reader.uint64();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a VibeAttestation message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.VibeAttestation
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.VibeAttestation} VibeAttestation
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        VibeAttestation.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a VibeAttestation message.
+         * @function verify
+         * @memberof types.VibeAttestation
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        VibeAttestation.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
+                    return "id: integer|Long expected";
+            if (message.fromAddress != null && message.hasOwnProperty("fromAddress"))
+                if (!(message.fromAddress && typeof message.fromAddress.length === "number" || $util.isString(message.fromAddress)))
+                    return "fromAddress: buffer expected";
+            if (message.toAddress != null && message.hasOwnProperty("toAddress"))
+                if (!(message.toAddress && typeof message.toAddress.length === "number" || $util.isString(message.toAddress)))
+                    return "toAddress: buffer expected";
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                if (!$util.isInteger(message.amount) && !(message.amount && $util.isInteger(message.amount.low) && $util.isInteger(message.amount.high)))
+                    return "amount: integer|Long expected";
+            if (message.tag != null && message.hasOwnProperty("tag"))
+                if (!$util.isString(message.tag))
+                    return "tag: string expected";
+            if (message.note != null && message.hasOwnProperty("note"))
+                if (!$util.isString(message.note))
+                    return "note: string expected";
+            if (message.height != null && message.hasOwnProperty("height"))
+                if (!$util.isInteger(message.height) && !(message.height && $util.isInteger(message.height.low) && $util.isInteger(message.height.high)))
+                    return "height: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a VibeAttestation message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.VibeAttestation
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.VibeAttestation} VibeAttestation
+         */
+        VibeAttestation.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.VibeAttestation)
+                return object;
+            var message = new $root.types.VibeAttestation();
+            if (object.id != null)
+                if ($util.Long)
+                    (message.id = $util.Long.fromValue(object.id)).unsigned = true;
+                else if (typeof object.id === "string")
+                    message.id = parseInt(object.id, 10);
+                else if (typeof object.id === "number")
+                    message.id = object.id;
+                else if (typeof object.id === "object")
+                    message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber(true);
+            if (object.fromAddress != null)
+                if (typeof object.fromAddress === "string")
+                    $util.base64.decode(object.fromAddress, message.fromAddress = $util.newBuffer($util.base64.length(object.fromAddress)), 0);
+                else if (object.fromAddress.length >= 0)
+                    message.fromAddress = object.fromAddress;
+            if (object.toAddress != null)
+                if (typeof object.toAddress === "string")
+                    $util.base64.decode(object.toAddress, message.toAddress = $util.newBuffer($util.base64.length(object.toAddress)), 0);
+                else if (object.toAddress.length >= 0)
+                    message.toAddress = object.toAddress;
+            if (object.amount != null)
+                if ($util.Long)
+                    (message.amount = $util.Long.fromValue(object.amount)).unsigned = true;
+                else if (typeof object.amount === "string")
+                    message.amount = parseInt(object.amount, 10);
+                else if (typeof object.amount === "number")
+                    message.amount = object.amount;
+                else if (typeof object.amount === "object")
+                    message.amount = new $util.LongBits(object.amount.low >>> 0, object.amount.high >>> 0).toNumber(true);
+            if (object.tag != null)
+                message.tag = String(object.tag);
+            if (object.note != null)
+                message.note = String(object.note);
+            if (object.height != null)
+                if ($util.Long)
+                    (message.height = $util.Long.fromValue(object.height)).unsigned = true;
+                else if (typeof object.height === "string")
+                    message.height = parseInt(object.height, 10);
+                else if (typeof object.height === "number")
+                    message.height = object.height;
+                else if (typeof object.height === "object")
+                    message.height = new $util.LongBits(object.height.low >>> 0, object.height.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a VibeAttestation message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.VibeAttestation
+         * @static
+         * @param {types.VibeAttestation} message VibeAttestation
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        VibeAttestation.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.id = options.longs === String ? "0" : 0;
+                if (options.bytes === String)
+                    object.fromAddress = "";
+                else {
+                    object.fromAddress = [];
+                    if (options.bytes !== Array)
+                        object.fromAddress = $util.newBuffer(object.fromAddress);
+                }
+                if (options.bytes === String)
+                    object.toAddress = "";
+                else {
+                    object.toAddress = [];
+                    if (options.bytes !== Array)
+                        object.toAddress = $util.newBuffer(object.toAddress);
+                }
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.amount = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.amount = options.longs === String ? "0" : 0;
+                object.tag = "";
+                object.note = "";
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.height = options.longs === String ? "0" : 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (typeof message.id === "number")
+                    object.id = options.longs === String ? String(message.id) : message.id;
+                else
+                    object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber(true) : message.id;
+            if (message.fromAddress != null && message.hasOwnProperty("fromAddress"))
+                object.fromAddress = options.bytes === String ? $util.base64.encode(message.fromAddress, 0, message.fromAddress.length) : options.bytes === Array ? Array.prototype.slice.call(message.fromAddress) : message.fromAddress;
+            if (message.toAddress != null && message.hasOwnProperty("toAddress"))
+                object.toAddress = options.bytes === String ? $util.base64.encode(message.toAddress, 0, message.toAddress.length) : options.bytes === Array ? Array.prototype.slice.call(message.toAddress) : message.toAddress;
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                if (typeof message.amount === "number")
+                    object.amount = options.longs === String ? String(message.amount) : message.amount;
+                else
+                    object.amount = options.longs === String ? $util.Long.prototype.toString.call(message.amount) : options.longs === Number ? new $util.LongBits(message.amount.low >>> 0, message.amount.high >>> 0).toNumber(true) : message.amount;
+            if (message.tag != null && message.hasOwnProperty("tag"))
+                object.tag = message.tag;
+            if (message.note != null && message.hasOwnProperty("note"))
+                object.note = message.note;
+            if (message.height != null && message.hasOwnProperty("height"))
+                if (typeof message.height === "number")
+                    object.height = options.longs === String ? String(message.height) : message.height;
+                else
+                    object.height = options.longs === String ? $util.Long.prototype.toString.call(message.height) : options.longs === Number ? new $util.LongBits(message.height.low >>> 0, message.height.high >>> 0).toNumber(true) : message.height;
+            return object;
+        };
+
+        /**
+         * Converts this VibeAttestation to JSON.
+         * @function toJSON
+         * @memberof types.VibeAttestation
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        VibeAttestation.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for VibeAttestation
+         * @function getTypeUrl
+         * @memberof types.VibeAttestation
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        VibeAttestation.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.VibeAttestation";
+        };
+
+        return VibeAttestation;
+    })();
+
+    types.VibeCounter = (function() {
+
+        /**
+         * Properties of a VibeCounter.
+         * @memberof types
+         * @interface IVibeCounter
+         * @property {number|Long|null} [nextId] VibeCounter nextId
+         */
+
+        /**
+         * Constructs a new VibeCounter.
+         * @memberof types
+         * @classdesc Represents a VibeCounter.
+         * @implements IVibeCounter
+         * @constructor
+         * @param {types.IVibeCounter=} [properties] Properties to set
+         */
+        function VibeCounter(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * VibeCounter nextId.
+         * @member {number|Long} nextId
+         * @memberof types.VibeCounter
+         * @instance
+         */
+        VibeCounter.prototype.nextId = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new VibeCounter instance using the specified properties.
+         * @function create
+         * @memberof types.VibeCounter
+         * @static
+         * @param {types.IVibeCounter=} [properties] Properties to set
+         * @returns {types.VibeCounter} VibeCounter instance
+         */
+        VibeCounter.create = function create(properties) {
+            return new VibeCounter(properties);
+        };
+
+        /**
+         * Encodes the specified VibeCounter message. Does not implicitly {@link types.VibeCounter.verify|verify} messages.
+         * @function encode
+         * @memberof types.VibeCounter
+         * @static
+         * @param {types.IVibeCounter} message VibeCounter message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        VibeCounter.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.nextId != null && Object.hasOwnProperty.call(message, "nextId"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.nextId);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified VibeCounter message, length delimited. Does not implicitly {@link types.VibeCounter.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.VibeCounter
+         * @static
+         * @param {types.IVibeCounter} message VibeCounter message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        VibeCounter.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a VibeCounter message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.VibeCounter
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.VibeCounter} VibeCounter
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        VibeCounter.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.VibeCounter();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.nextId = reader.uint64();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a VibeCounter message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.VibeCounter
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.VibeCounter} VibeCounter
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        VibeCounter.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a VibeCounter message.
+         * @function verify
+         * @memberof types.VibeCounter
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        VibeCounter.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.nextId != null && message.hasOwnProperty("nextId"))
+                if (!$util.isInteger(message.nextId) && !(message.nextId && $util.isInteger(message.nextId.low) && $util.isInteger(message.nextId.high)))
+                    return "nextId: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a VibeCounter message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.VibeCounter
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.VibeCounter} VibeCounter
+         */
+        VibeCounter.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.VibeCounter)
+                return object;
+            var message = new $root.types.VibeCounter();
+            if (object.nextId != null)
+                if ($util.Long)
+                    (message.nextId = $util.Long.fromValue(object.nextId)).unsigned = true;
+                else if (typeof object.nextId === "string")
+                    message.nextId = parseInt(object.nextId, 10);
+                else if (typeof object.nextId === "number")
+                    message.nextId = object.nextId;
+                else if (typeof object.nextId === "object")
+                    message.nextId = new $util.LongBits(object.nextId.low >>> 0, object.nextId.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a VibeCounter message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.VibeCounter
+         * @static
+         * @param {types.VibeCounter} message VibeCounter
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        VibeCounter.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.nextId = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.nextId = options.longs === String ? "0" : 0;
+            if (message.nextId != null && message.hasOwnProperty("nextId"))
+                if (typeof message.nextId === "number")
+                    object.nextId = options.longs === String ? String(message.nextId) : message.nextId;
+                else
+                    object.nextId = options.longs === String ? $util.Long.prototype.toString.call(message.nextId) : options.longs === Number ? new $util.LongBits(message.nextId.low >>> 0, message.nextId.high >>> 0).toNumber(true) : message.nextId;
+            return object;
+        };
+
+        /**
+         * Converts this VibeCounter to JSON.
+         * @function toJSON
+         * @memberof types.VibeCounter
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        VibeCounter.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for VibeCounter
+         * @function getTypeUrl
+         * @memberof types.VibeCounter
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        VibeCounter.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.VibeCounter";
+        };
+
+        return VibeCounter;
+    })();
+
     types.FeeParams = (function() {
 
         /**
@@ -8835,6 +10495,8 @@ $root.types = (function() {
          * @memberof types
          * @interface IFeeParams
          * @property {number|Long|null} [sendFee] FeeParams sendFee
+         * @property {number|Long|null} [registerProfileFee] FeeParams registerProfileFee
+         * @property {number|Long|null} [giveVibeFee] FeeParams giveVibeFee
          */
 
         /**
@@ -8859,6 +10521,22 @@ $root.types = (function() {
          * @instance
          */
         FeeParams.prototype.sendFee = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * FeeParams registerProfileFee.
+         * @member {number|Long} registerProfileFee
+         * @memberof types.FeeParams
+         * @instance
+         */
+        FeeParams.prototype.registerProfileFee = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * FeeParams giveVibeFee.
+         * @member {number|Long} giveVibeFee
+         * @memberof types.FeeParams
+         * @instance
+         */
+        FeeParams.prototype.giveVibeFee = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * Creates a new FeeParams instance using the specified properties.
@@ -8886,6 +10564,10 @@ $root.types = (function() {
                 writer = $Writer.create();
             if (message.sendFee != null && Object.hasOwnProperty.call(message, "sendFee"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.sendFee);
+            if (message.registerProfileFee != null && Object.hasOwnProperty.call(message, "registerProfileFee"))
+                writer.uint32(/* id 14, wireType 0 =*/112).uint64(message.registerProfileFee);
+            if (message.giveVibeFee != null && Object.hasOwnProperty.call(message, "giveVibeFee"))
+                writer.uint32(/* id 15, wireType 0 =*/120).uint64(message.giveVibeFee);
             return writer;
         };
 
@@ -8926,6 +10608,14 @@ $root.types = (function() {
                         message.sendFee = reader.uint64();
                         break;
                     }
+                case 14: {
+                        message.registerProfileFee = reader.uint64();
+                        break;
+                    }
+                case 15: {
+                        message.giveVibeFee = reader.uint64();
+                        break;
+                    }
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -8964,6 +10654,12 @@ $root.types = (function() {
             if (message.sendFee != null && message.hasOwnProperty("sendFee"))
                 if (!$util.isInteger(message.sendFee) && !(message.sendFee && $util.isInteger(message.sendFee.low) && $util.isInteger(message.sendFee.high)))
                     return "sendFee: integer|Long expected";
+            if (message.registerProfileFee != null && message.hasOwnProperty("registerProfileFee"))
+                if (!$util.isInteger(message.registerProfileFee) && !(message.registerProfileFee && $util.isInteger(message.registerProfileFee.low) && $util.isInteger(message.registerProfileFee.high)))
+                    return "registerProfileFee: integer|Long expected";
+            if (message.giveVibeFee != null && message.hasOwnProperty("giveVibeFee"))
+                if (!$util.isInteger(message.giveVibeFee) && !(message.giveVibeFee && $util.isInteger(message.giveVibeFee.low) && $util.isInteger(message.giveVibeFee.high)))
+                    return "giveVibeFee: integer|Long expected";
             return null;
         };
 
@@ -8988,6 +10684,24 @@ $root.types = (function() {
                     message.sendFee = object.sendFee;
                 else if (typeof object.sendFee === "object")
                     message.sendFee = new $util.LongBits(object.sendFee.low >>> 0, object.sendFee.high >>> 0).toNumber(true);
+            if (object.registerProfileFee != null)
+                if ($util.Long)
+                    (message.registerProfileFee = $util.Long.fromValue(object.registerProfileFee)).unsigned = true;
+                else if (typeof object.registerProfileFee === "string")
+                    message.registerProfileFee = parseInt(object.registerProfileFee, 10);
+                else if (typeof object.registerProfileFee === "number")
+                    message.registerProfileFee = object.registerProfileFee;
+                else if (typeof object.registerProfileFee === "object")
+                    message.registerProfileFee = new $util.LongBits(object.registerProfileFee.low >>> 0, object.registerProfileFee.high >>> 0).toNumber(true);
+            if (object.giveVibeFee != null)
+                if ($util.Long)
+                    (message.giveVibeFee = $util.Long.fromValue(object.giveVibeFee)).unsigned = true;
+                else if (typeof object.giveVibeFee === "string")
+                    message.giveVibeFee = parseInt(object.giveVibeFee, 10);
+                else if (typeof object.giveVibeFee === "number")
+                    message.giveVibeFee = object.giveVibeFee;
+                else if (typeof object.giveVibeFee === "object")
+                    message.giveVibeFee = new $util.LongBits(object.giveVibeFee.low >>> 0, object.giveVibeFee.high >>> 0).toNumber(true);
             return message;
         };
 
@@ -9004,17 +10718,38 @@ $root.types = (function() {
             if (!options)
                 options = {};
             var object = {};
-            if (options.defaults)
+            if (options.defaults) {
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, true);
                     object.sendFee = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.sendFee = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.registerProfileFee = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.registerProfileFee = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.giveVibeFee = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.giveVibeFee = options.longs === String ? "0" : 0;
+            }
             if (message.sendFee != null && message.hasOwnProperty("sendFee"))
                 if (typeof message.sendFee === "number")
                     object.sendFee = options.longs === String ? String(message.sendFee) : message.sendFee;
                 else
                     object.sendFee = options.longs === String ? $util.Long.prototype.toString.call(message.sendFee) : options.longs === Number ? new $util.LongBits(message.sendFee.low >>> 0, message.sendFee.high >>> 0).toNumber(true) : message.sendFee;
+            if (message.registerProfileFee != null && message.hasOwnProperty("registerProfileFee"))
+                if (typeof message.registerProfileFee === "number")
+                    object.registerProfileFee = options.longs === String ? String(message.registerProfileFee) : message.registerProfileFee;
+                else
+                    object.registerProfileFee = options.longs === String ? $util.Long.prototype.toString.call(message.registerProfileFee) : options.longs === Number ? new $util.LongBits(message.registerProfileFee.low >>> 0, message.registerProfileFee.high >>> 0).toNumber(true) : message.registerProfileFee;
+            if (message.giveVibeFee != null && message.hasOwnProperty("giveVibeFee"))
+                if (typeof message.giveVibeFee === "number")
+                    object.giveVibeFee = options.longs === String ? String(message.giveVibeFee) : message.giveVibeFee;
+                else
+                    object.giveVibeFee = options.longs === String ? $util.Long.prototype.toString.call(message.giveVibeFee) : options.longs === Number ? new $util.LongBits(message.giveVibeFee.low >>> 0, message.giveVibeFee.high >>> 0).toNumber(true) : message.giveVibeFee;
             return object;
         };
 

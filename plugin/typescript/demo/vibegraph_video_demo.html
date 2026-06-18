@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VibeGraph Video Demo</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b1016;
+      --panel: #151d27;
+      --panel2: #1e2937;
+      --line: #334155;
+      --text: #f8fafc;
+      --muted: #9aa8ba;
+      --green: #42d392;
+      --blue: #67b7ff;
+      --yellow: #ffd166;
+      --purple: #c9a6ff;
+      --red: #ff6b6b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(66, 211, 146, 0.16), transparent 24%),
+        radial-gradient(circle at 88% 14%, rgba(103, 183, 255, 0.14), transparent 24%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      overflow: hidden;
+    }
+
+    main {
+      width: min(1180px, calc(100vw - 36px));
+      height: 100vh;
+      margin: 0 auto;
+      padding: 24px 0;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 16px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: conic-gradient(from 90deg, var(--green), var(--blue), var(--purple), var(--green));
+      display: grid;
+      place-items: center;
+      color: #06130d;
+      font-weight: 900;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .brand span,
+    .hint,
+    p {
+      color: var(--muted);
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: 0;
+      border-radius: 6px;
+      background: var(--green);
+      color: #06130d;
+      font: inherit;
+      font-weight: 800;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: #223044;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .stage {
+      position: relative;
+      border: 1px solid var(--line);
+      background: rgba(15, 23, 32, 0.92);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.36);
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      padding: 28px;
+      opacity: 0;
+      transform: translateY(14px);
+      pointer-events: none;
+      transition: opacity 500ms ease, transform 500ms ease;
+    }
+
+    .scene.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .eyebrow {
+      color: var(--green);
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(38px, 5.6vw, 78px);
+      line-height: 0.95;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.48;
+      margin: 0;
+      max-width: 560px;
+    }
+
+    code {
+      color: var(--yellow);
+      font-family: "Cascadia Code", Consolas, monospace;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: rgba(30, 41, 55, 0.88);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .profiles {
+      display: grid;
+      gap: 14px;
+      align-content: center;
+    }
+
+    .profile {
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
+      align-items: center;
+      gap: 14px;
+      border: 1px solid var(--line);
+      background: #111a25;
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      color: #06130d;
+      background: var(--green);
+    }
+
+    .profile:nth-child(2) .avatar {
+      background: var(--blue);
+      color: #06101a;
+    }
+
+    .score {
+      text-align: right;
+      min-width: 90px;
+    }
+
+    .score strong {
+      display: block;
+      font-size: 34px;
+      transition: color 300ms ease, transform 300ms ease;
+    }
+
+    .score.bump strong {
+      color: var(--green);
+      transform: scale(1.12);
+    }
+
+    .score span,
+    small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .tx-card {
+      display: grid;
+      gap: 12px;
+      align-content: center;
+    }
+
+    .field {
+      display: grid;
+      grid-template-columns: 132px 1fr;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #111a25;
+      font-family: "Cascadia Code", Consolas, monospace;
+      font-size: 14px;
+    }
+
+    .field span {
+      color: var(--muted);
+    }
+
+    .terminal {
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      min-height: 340px;
+      font-family: "Cascadia Code", Consolas, monospace;
+      font-size: 14px;
+      color: #d5e2f0;
+      background: #070b10;
+      border: 1px solid #1f2a37;
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .terminal .ok {
+      color: var(--green);
+    }
+
+    .terminal .hash {
+      color: var(--yellow);
+    }
+
+    .badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 10px;
+      color: var(--muted);
+      background: #111a25;
+      font-size: 13px;
+    }
+
+    footer {
+      display: grid;
+      gap: 8px;
+    }
+
+    .progress {
+      width: 100%;
+      height: 7px;
+      border-radius: 999px;
+      background: #182230;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--green), var(--blue));
+      transition: width 250ms linear;
+    }
+
+    .caption {
+      color: var(--text);
+      font-size: 16px;
+      min-height: 24px;
+    }
+
+    @media (max-width: 880px) {
+      body {
+        overflow: auto;
+      }
+
+      main {
+        height: auto;
+      }
+
+      .stage {
+        min-height: 820px;
+      }
+
+      .scene {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="brand">
+        <div class="mark">VG</div>
+        <div>
+          <h1>VibeGraph</h1>
+          <span>Social-Fi Canopy appchain demo</span>
+        </div>
+      </div>
+      <div class="controls">
+        <button id="play">Play Demo</button>
+        <button class="secondary" id="restart">Restart</button>
+      </div>
+    </header>
+
+    <section class="stage">
+      <article class="scene active">
+        <div class="copy">
+          <div class="eyebrow">One-line pitch</div>
+          <h2>Community thanks, stored onchain.</h2>
+          <p>VibeGraph lets people register social profiles and give signed reputation attestations for useful community work.</p>
+          <div class="badges">
+            <span class="badge">Canopy TypeScript template</span>
+            <span class="badge">Custom transaction types</span>
+            <span class="badge">Social-Fi</span>
+          </div>
+        </div>
+        <div class="profiles">
+          <div class="profile">
+            <div class="avatar">A</div>
+            <div><h3>Alice Builder</h3><small>@alice_builder | frontend contributor</small></div>
+            <div class="score"><strong>12</strong><span>vibe score</span></div>
+          </div>
+          <div class="profile">
+            <div class="avatar">B</div>
+            <div><h3>Bob Mentor</h3><small>@bob_mentor | protocol explainer</small></div>
+            <div class="score"><strong id="bobScoreIntro">58</strong><span>vibe score</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="scene">
+        <div class="copy">
+          <div class="eyebrow">Step 1</div>
+          <h2>Register onchain profiles.</h2>
+          <p>The plugin defines <code>register_profile</code>. Each user signs a transaction that stores handle, bio, score, and activity counters in Canopy plugin state.</p>
+        </div>
+        <div class="terminal">
+          <div>&gt; npm run demo:vibegraph</div>
+          <div class="ok">Connected to Canopy query RPC at height 18</div>
+          <div class="ok">Connected to Canopy admin RPC at http://localhost:50003</div>
+          <div>Created Alice: 0x7b9c...a132</div>
+          <div>Created Bob:   0x40ae...77fd</div>
+          <div class="hash">register Alice profile tx: 0x3a41f9c6b8d22a11</div>
+          <div class="hash">register Bob profile tx:   0xa20c76e2f4b81890</div>
+          <div class="ok">profile transactions confirmed</div>
+        </div>
+      </article>
+
+      <article class="scene">
+        <div class="copy">
+          <div class="eyebrow">Step 2</div>
+          <h2>Alice gives Bob a vibe.</h2>
+          <p>The second custom transaction is <code>give_vibe</code>. It records the sender, receiver, score amount, tag, note, and height as a permanent reputation attestation.</p>
+        </div>
+        <div class="tx-card panel">
+          <div class="field"><span>type</span><code>give_vibe</code></div>
+          <div class="field"><span>from</span><code>alice_builder</code></div>
+          <div class="field"><span>to</span><code>bob_mentor</code></div>
+          <div class="field"><span>amount</span><code>42</code></div>
+          <div class="field"><span>tag</span><code>mentor</code></div>
+          <div class="field"><span>note</span><code>Helped unblock a clean Canopy RPC demo.</code></div>
+        </div>
+      </article>
+
+      <article class="scene">
+        <div class="copy">
+          <div class="eyebrow">Step 3</div>
+          <h2>Bob's reputation increases.</h2>
+          <p>DeliverTx updates both profiles, writes a new <code>VibeAttestation</code>, and increments the attestation counter. The social graph now has a portable reputation edge.</p>
+        </div>
+        <div class="profiles">
+          <div class="profile">
+            <div class="avatar">A</div>
+            <div><h3>Alice Builder</h3><small>vibes given: 42 | signed attester</small></div>
+            <div class="score"><strong>12</strong><span>vibe score</span></div>
+          </div>
+          <div class="profile">
+            <div class="avatar">B</div>
+            <div><h3>Bob Mentor</h3><small>vibes received: 100 | mentor attestation</small></div>
+            <div class="score bump"><strong>100</strong><span>vibe score</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="scene">
+        <div class="copy">
+          <div class="eyebrow">RPC proof</div>
+          <h2>The app touches the local chain.</h2>
+          <p>The terminal demo submits signed protobuf transactions through Canopy RPC: query/tx on <code>50002</code> and admin keystore on <code>50003</code>.</p>
+        </div>
+        <div class="terminal">
+          <div class="hash">give_vibe tx sent: 0x91bb50e1776240c8</div>
+          <div>Waiting for give_vibe transaction to be confirmed...</div>
+          <div class="ok">give_vibe tx confirmed</div>
+          <div>State export contains profile handle: alice_builder</div>
+          <div>State export contains profile handle: bob_mentor</div>
+          <div class="ok">Demo complete</div>
+          <div>- Custom tx submitted: register_profile</div>
+          <div>- Custom tx submitted: give_vibe</div>
+          <div>- Local RPC ports used: 50002 and 50003</div>
+        </div>
+      </article>
+
+      <article class="scene">
+        <div class="copy">
+          <div class="eyebrow">Submission line</div>
+          <h2>VibeGraph is ready for Social-Fi.</h2>
+          <p>Profiles, signed thanks, and portable onchain reputation for builders, mentors, artists, moderators, and community contributors.</p>
+          <div class="badges">
+            <span class="badge">Pitch: VibeGraph turns community thanks into portable onchain reputation.</span>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Contest checklist</h3>
+          <p>Uses Canopy TypeScript template.</p>
+          <p>Defines custom tx types.</p>
+          <p>Stores custom social state.</p>
+          <p>Demo script talks to local RPC ports 50002 and 50003.</p>
+        </div>
+      </article>
+    </section>
+
+    <footer>
+      <div class="progress"><div class="bar" id="bar"></div></div>
+      <div class="caption" id="caption">Scene 1: VibeGraph pitch</div>
+      <div class="hint">For the contest video: screen-record this tab while it plays, then run the terminal RPC demo when your Canopy chain is online.</div>
+    </footer>
+  </main>
+
+  <script>
+    const scenes = [...document.querySelectorAll(".scene")];
+    const captions = [
+      "Scene 1: VibeGraph pitch",
+      "Scene 2: register_profile transactions",
+      "Scene 3: give_vibe transaction",
+      "Scene 4: reputation state update",
+      "Scene 5: local RPC proof",
+      "Scene 6: submission checklist"
+    ];
+    const caption = document.querySelector("#caption");
+    const bar = document.querySelector("#bar");
+    const play = document.querySelector("#play");
+    const restart = document.querySelector("#restart");
+    let index = 0;
+    let timer = null;
+    let playing = true;
+    const duration = 4200;
+
+    function show(next) {
+      index = next % scenes.length;
+      scenes.forEach((scene, sceneIndex) => {
+        scene.classList.toggle("active", sceneIndex === index);
+      });
+      caption.textContent = captions[index];
+      bar.style.width = `${((index + 1) / scenes.length) * 100}%`;
+    }
+
+    function schedule() {
+      clearInterval(timer);
+      if (!playing) return;
+      timer = setInterval(() => show(index + 1), duration);
+    }
+
+    play.addEventListener("click", () => {
+      playing = !playing;
+      play.textContent = playing ? "Pause Demo" : "Play Demo";
+      schedule();
+    });
+
+    restart.addEventListener("click", () => {
+      playing = true;
+      play.textContent = "Pause Demo";
+      show(0);
+      schedule();
+    });
+
+    play.textContent = "Pause Demo";
+    show(0);
+    schedule();
+  </script>
+</body>
+</html>

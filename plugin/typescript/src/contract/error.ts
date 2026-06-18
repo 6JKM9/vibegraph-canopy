@@ -71,3 +71,23 @@ export function ErrInvalidAmount(): IPluginError {
 export function ErrTxFeeBelowStateLimit(): IPluginError {
     return NewError(14, DefaultModule, 'tx.fee is below state limit');
 }
+
+export function ErrInvalidHandle(): IPluginError {
+    return NewError(15, DefaultModule, 'profile handle is invalid');
+}
+
+export function ErrHandleTaken(): IPluginError {
+    return NewError(16, DefaultModule, 'profile handle is already taken');
+}
+
+export function ErrProfileRequired(): IPluginError {
+    return NewError(17, DefaultModule, 'both accounts must register profiles first');
+}
+
+export function ErrSelfVibe(): IPluginError {
+    return NewError(18, DefaultModule, 'cannot give vibe to yourself');
+}
+
+export function ErrInvalidSocialText(): IPluginError {
+    return NewError(19, DefaultModule, 'social text field is invalid');
+}

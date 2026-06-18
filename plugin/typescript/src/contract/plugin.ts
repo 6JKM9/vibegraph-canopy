@@ -408,7 +408,12 @@ export function FromAny(any: any): [any | null, string | null, IPluginError | nu
         if (typeUrl.includes('MessageSend')) {
             return [types.MessageSend.decode(any.value), 'MessageSend', null];
         }
-        // NOTE: To add new message types, see TUTORIAL.md
+        if (typeUrl.includes('MessageRegisterProfile')) {
+            return [types.MessageRegisterProfile.decode(any.value), 'MessageRegisterProfile', null];
+        }
+        if (typeUrl.includes('MessageGiveVibe')) {
+            return [types.MessageGiveVibe.decode(any.value), 'MessageGiveVibe', null];
+        }
         return [null, null, ErrInvalidMessageCast()];
     } catch (err) {
         return [null, null, ErrFromAny(err as Error)];

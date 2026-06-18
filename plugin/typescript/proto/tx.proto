@@ -39,11 +39,67 @@ message MessageSend {
   uint64 amount = 3;
 }
 
+// MessageRegisterProfile creates or updates an onchain social profile.
+message MessageRegisterProfile {
+  // owner_address: the account that owns and signs for this profile
+  bytes owner_address = 1; // @gotags: json:"ownerAddress"
+  // handle: globally unique social handle, 3-24 chars, letters/numbers/underscore
+  string handle = 2;
+  // bio: short profile description
+  string bio = 3;
+}
+
+// MessageGiveVibe records an onchain reputation attestation from one profile to another.
+message MessageGiveVibe {
+  // from_address: the profile/account giving reputation
+  bytes from_address = 1; // @gotags: json:"fromAddress"
+  // to_address: the profile/account receiving reputation
+  bytes to_address = 2; // @gotags: json:"toAddress"
+  // amount: reputation points to award, capped in plugin validation
+  uint64 amount = 3;
+  // tag: compact reason category, e.g. "builder", "mentor", "artist"
+  string tag = 4;
+  // note: short human-readable reason
+  string note = 5;
+}
+
+// SocialProfile is plugin state for a social identity and reputation score.
+message SocialProfile {
+  bytes owner_address = 1; // @gotags: json:"ownerAddress"
+  string handle = 2;
+  string bio = 3;
+  uint64 vibe_score = 4; // @gotags: json:"vibeScore"
+  uint64 vibes_given = 5; // @gotags: json:"vibesGiven"
+  uint64 vibes_received = 6; // @gotags: json:"vibesReceived"
+  uint64 created_height = 7; // @gotags: json:"createdHeight"
+  uint64 updated_height = 8; // @gotags: json:"updatedHeight"
+}
+
+// VibeAttestation is immutable plugin state for one reputation award.
+message VibeAttestation {
+  uint64 id = 1;
+  bytes from_address = 2; // @gotags: json:"fromAddress"
+  bytes to_address = 3; // @gotags: json:"toAddress"
+  uint64 amount = 4;
+  string tag = 5;
+  string note = 6;
+  uint64 height = 7;
+}
+
+// VibeCounter tracks the next attestation id.
+message VibeCounter {
+  uint64 next_id = 1; // @gotags: json:"nextId"
+}
+
 // FeeParams is the parameter space that defines various amounts for transaction fees
 message FeeParams {
   // send_fee: is the fee amount (in uCNPY) for Message Send
   uint64 send_fee = 1; // @gotags: json:"sendFee"
-  // NO CONFLICT STARTING AT FIELD = 14
+  // register_profile_fee: minimum fee for MessageRegisterProfile
+  uint64 register_profile_fee = 14; // @gotags: json:"registerProfileFee"
+  // give_vibe_fee: minimum fee for MessageGiveVibe
+  uint64 give_vibe_fee = 15; // @gotags: json:"giveVibeFee"
+  // NO CONFLICT STARTING AT FIELD = 16
 }
 
 // A Signature is a digital signature is a cryptographic "fingerprint" created with a private key,

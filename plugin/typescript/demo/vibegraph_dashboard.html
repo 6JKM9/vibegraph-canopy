@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VibeGraph Demo Dashboard</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0d1117;
+      --panel: #151b23;
+      --panel-2: #1f2937;
+      --line: #303946;
+      --text: #f4f7fb;
+      --muted: #9aa6b2;
+      --green: #42d392;
+      --blue: #65a8ff;
+      --yellow: #ffd166;
+      --red: #ff6b6b;
+      --purple: #b99cff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(135deg, rgba(66, 211, 146, 0.12), transparent 34%),
+        linear-gradient(215deg, rgba(101, 168, 255, 0.12), transparent 38%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    main {
+      width: min(1120px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 32px 0;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 16px;
+      align-items: stretch;
+      margin-bottom: 16px;
+    }
+
+    section,
+    .panel {
+      border: 1px solid var(--line);
+      background: rgba(21, 27, 35, 0.88);
+      border-radius: 8px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.24);
+    }
+
+    .hero {
+      padding: 26px;
+    }
+
+    .eyebrow {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 7vw, 76px);
+      line-height: 0.92;
+      margin: 0 0 14px;
+      letter-spacing: 0;
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0;
+      max-width: 700px;
+    }
+
+    .status {
+      padding: 20px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .status h2,
+    section h2 {
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+
+    label {
+      color: var(--muted);
+      display: grid;
+      gap: 6px;
+      font-size: 12px;
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #0f141b;
+      color: var(--text);
+      border-radius: 6px;
+      padding: 10px 12px;
+      font: inherit;
+      min-width: 0;
+    }
+
+    button {
+      border: 0;
+      background: var(--green);
+      color: #06130d;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    button:hover {
+      filter: brightness(1.05);
+    }
+
+    .secondary {
+      background: #243244;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .metric {
+      padding: 18px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 30px;
+      margin-top: 8px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .flow {
+      padding: 20px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .composer,
+    .state-board {
+      padding: 20px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .profile-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .profile {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #06130d;
+      font-weight: 900;
+      background: var(--green);
+    }
+
+    .profile:nth-child(2) .avatar {
+      background: var(--blue);
+      color: #07101d;
+    }
+
+    .profile:nth-child(3) .avatar {
+      background: var(--purple);
+      color: #140d23;
+    }
+
+    .profile h3 {
+      margin: 0 0 3px;
+      font-size: 15px;
+    }
+
+    .profile p {
+      font-size: 12px;
+      max-width: none;
+    }
+
+    .score {
+      min-width: 72px;
+      text-align: right;
+    }
+
+    .score strong {
+      display: block;
+      font-size: 22px;
+    }
+
+    .score span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .fields {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .fields label:last-child {
+      grid-column: 1 / -1;
+    }
+
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #0f141b;
+      color: var(--text);
+      border-radius: 6px;
+      padding: 10px 12px;
+      font: inherit;
+      min-width: 0;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 72px;
+    }
+
+    .feed {
+      display: grid;
+      gap: 10px;
+    }
+
+    .event {
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #101720;
+    }
+
+    .event b {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .event small {
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      padding: 4px 9px;
+      font-size: 12px;
+      width: fit-content;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .step {
+      padding: 16px;
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      min-height: 132px;
+    }
+
+    .step b {
+      color: var(--text);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    code {
+      color: var(--yellow);
+      overflow-wrap: anywhere;
+    }
+
+    .log {
+      background: #080b10;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 120px;
+      color: var(--muted);
+      white-space: pre-wrap;
+      font-family: "Cascadia Code", Consolas, monospace;
+      font-size: 12px;
+    }
+
+    .ok {
+      color: var(--green);
+    }
+
+    .bad {
+      color: var(--red);
+    }
+
+    @media (max-width: 820px) {
+      header,
+      .metric-grid,
+      .steps,
+      .demo-grid,
+      .fields {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 46px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="hero panel">
+        <div class="eyebrow">Canopy Social-Fi appchain</div>
+        <h1>VibeGraph</h1>
+        <p>Community profiles, signed thanks, and portable onchain reputation. The terminal demo submits real <code>register_profile</code> and <code>give_vibe</code> transactions through local Canopy RPC.</p>
+      </div>
+      <div class="status panel">
+        <h2>Local RPC</h2>
+        <label>
+          Query RPC
+          <input id="rpc" value="http://localhost:50002">
+        </label>
+        <button id="check">Check Chain</button>
+        <div id="rpcStatus">Not checked yet</div>
+      </div>
+    </header>
+
+    <div class="metric-grid">
+      <div class="metric panel">
+        <span>Custom tx types</span>
+        <strong>2</strong>
+      </div>
+      <div class="metric panel">
+        <span>State records</span>
+        <strong>3</strong>
+      </div>
+      <div class="metric panel">
+        <span>Demo RPC ports</span>
+        <strong>50002/3</strong>
+      </div>
+    </div>
+
+    <section class="flow">
+      <h2>Recording Flow</h2>
+      <div class="steps">
+        <div class="step">
+          <b>1. Register Profiles</b>
+          <p>Alice and Bob create onchain social identities with unique handles.</p>
+        </div>
+        <div class="step">
+          <b>2. Give Vibe</b>
+          <p>Alice signs a reputation attestation for Bob with a tag, note, and score.</p>
+        </div>
+        <div class="step">
+          <b>3. Confirm RPC</b>
+          <p>The demo confirms tx inclusion through Canopy RPC and prints tx hashes.</p>
+        </div>
+      </div>
+      <div class="log" id="log">Run this in another terminal:
+
+npm run demo:vibegraph</div>
+    </section>
+
+    <div class="demo-grid">
+      <section class="composer">
+        <div>
+          <div class="eyebrow">Example Workspace</div>
+          <h2>Profiles</h2>
+        </div>
+        <div class="profile-list" id="profiles"></div>
+        <div class="button-row">
+          <button id="seed">Run Example Flow</button>
+          <button class="secondary" id="reset">Reset</button>
+        </div>
+      </section>
+
+      <section class="state-board">
+        <div>
+          <div class="eyebrow">Custom Transaction</div>
+          <h2>Give Vibe</h2>
+        </div>
+        <div class="fields">
+          <label>
+            From
+            <select id="fromProfile"></select>
+          </label>
+          <label>
+            To
+            <select id="toProfile"></select>
+          </label>
+          <label>
+            Vibe points
+            <input id="amount" value="42" inputmode="numeric">
+          </label>
+          <label>
+            Tag
+            <input id="tag" value="mentor">
+          </label>
+          <label>
+            Note
+            <textarea id="note">Helped unblock a clean Canopy RPC demo.</textarea>
+          </label>
+        </div>
+        <div class="button-row">
+          <button id="give">Submit Example Vibe</button>
+          <span class="pill">register_profile + give_vibe</span>
+        </div>
+        <div class="feed" id="feed"></div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const check = document.querySelector("#check");
+    const rpc = document.querySelector("#rpc");
+    const status = document.querySelector("#rpcStatus");
+    const log = document.querySelector("#log");
+    const profilesEl = document.querySelector("#profiles");
+    const feedEl = document.querySelector("#feed");
+    const fromProfile = document.querySelector("#fromProfile");
+    const toProfile = document.querySelector("#toProfile");
+    const amount = document.querySelector("#amount");
+    const tag = document.querySelector("#tag");
+    const note = document.querySelector("#note");
+    const give = document.querySelector("#give");
+    const seed = document.querySelector("#seed");
+    const reset = document.querySelector("#reset");
+
+    const initialProfiles = [
+      {
+        id: "alice",
+        name: "Alice Builder",
+        handle: "alice_builder",
+        bio: "Frontend builder looking for useful onchain feedback.",
+        score: 12,
+        given: 0,
+        received: 12,
+        address: "0x7b9c...a132"
+      },
+      {
+        id: "bob",
+        name: "Bob Mentor",
+        handle: "bob_mentor",
+        bio: "Community mentor and protocol explainer.",
+        score: 58,
+        given: 24,
+        received: 58,
+        address: "0x40ae...77fd"
+      },
+      {
+        id: "maya",
+        name: "Maya Artist",
+        handle: "maya_artist",
+        bio: "Makes launch visuals and community badges.",
+        score: 31,
+        given: 10,
+        received: 31,
+        address: "0xa913...c8f0"
+      }
+    ];
+
+    let profiles = structuredClone(initialProfiles);
+    let events = [
+      {
+        title: "register_profile",
+        body: "alice_builder registered a profile",
+        hash: "0x3a41f9c6b8d22a11"
+      },
+      {
+        title: "register_profile",
+        body: "bob_mentor registered a profile",
+        hash: "0xa20c76e2f4b81890"
+      }
+    ];
+
+    function shortHash() {
+      const bytes = new Uint8Array(8);
+      crypto.getRandomValues(bytes);
+      return "0x" + [...bytes].map((b) => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    function renderProfiles() {
+      profilesEl.innerHTML = profiles.map((profile) => `
+        <article class="profile">
+          <div class="avatar">${profile.name.slice(0, 1)}</div>
+          <div>
+            <h3>${profile.name} <code>@${profile.handle}</code></h3>
+            <p>${profile.bio}</p>
+            <p>${profile.address} | given ${profile.given} | received ${profile.received}</p>
+          </div>
+          <div class="score">
+            <strong>${profile.score}</strong>
+            <span>vibe score</span>
+          </div>
+        </article>
+      `).join("");
+
+      fromProfile.innerHTML = profiles.map((profile) => `<option value="${profile.id}">${profile.handle}</option>`).join("");
+      toProfile.innerHTML = profiles.map((profile) => `<option value="${profile.id}">${profile.handle}</option>`).join("");
+      fromProfile.value = fromProfile.value || "alice";
+      toProfile.value = toProfile.value || "bob";
+      if (fromProfile.value === toProfile.value) toProfile.value = "bob";
+    }
+
+    function renderFeed() {
+      feedEl.innerHTML = events.slice().reverse().map((event) => `
+        <article class="event">
+          <b>${event.title}</b>
+          <small>${event.body}<br>${event.hash}</small>
+        </article>
+      `).join("");
+    }
+
+    function writeDemoLog(lastEvent) {
+      log.textContent = [
+        "VibeGraph example state",
+        "",
+        "Custom tx: register_profile",
+        "Custom tx: give_vibe",
+        "",
+        `Latest: ${lastEvent.title}`,
+        `Result: ${lastEvent.body}`,
+        `Example tx hash: ${lastEvent.hash}`,
+        "",
+        "When Canopy is running, npm run demo:vibegraph submits this same flow through RPC ports 50002/50003."
+      ].join("\n");
+    }
+
+    function submitExampleVibe() {
+      const from = profiles.find((profile) => profile.id === fromProfile.value);
+      const to = profiles.find((profile) => profile.id === toProfile.value);
+      const points = Math.max(1, Math.min(100, Number.parseInt(amount.value, 10) || 1));
+
+      if (!from || !to || from.id === to.id) {
+        const event = {
+          title: "give_vibe rejected",
+          body: "sender and receiver must be different registered profiles",
+          hash: "local-validation"
+        };
+        events.push(event);
+        renderFeed();
+        writeDemoLog(event);
+        return;
+      }
+
+      from.given += points;
+      to.received += points;
+      to.score += points;
+
+      const event = {
+        title: "give_vibe",
+        body: `${from.handle} gave ${to.handle} ${points} points tagged ${tag.value || "builder"}`,
+        hash: shortHash()
+      };
+      events.push(event);
+      renderProfiles();
+      renderFeed();
+      writeDemoLog(event);
+    }
+
+    function runExampleFlow() {
+      profiles = structuredClone(initialProfiles);
+      events = [
+        {
+          title: "register_profile",
+          body: "alice_builder registered a profile",
+          hash: shortHash()
+        },
+        {
+          title: "register_profile",
+          body: "bob_mentor registered a profile",
+          hash: shortHash()
+        }
+      ];
+      fromProfile.value = "alice";
+      toProfile.value = "bob";
+      amount.value = "42";
+      tag.value = "mentor";
+      note.value = "Helped unblock a clean Canopy RPC demo.";
+      submitExampleVibe();
+    }
+
+    function resetDemo() {
+      profiles = structuredClone(initialProfiles);
+      events = [];
+      renderProfiles();
+      renderFeed();
+      log.textContent = "Example reset.\nRun the example flow or submit a vibe.";
+    }
+
+    check.addEventListener("click", async () => {
+      status.textContent = "Checking...";
+      try {
+        const response = await fetch(`${rpc.value.replace(/\/$/, "")}/v1/query/height`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: "{}"
+        });
+        const text = await response.text();
+        if (!response.ok) throw new Error(text);
+        const data = JSON.parse(text);
+        status.innerHTML = `<span class="ok">Connected at height ${data.height}</span>`;
+        log.textContent = `Canopy query RPC is online.\nHeight: ${data.height}\n\nNow run: npm run demo:vibegraph`;
+      } catch (err) {
+        status.innerHTML = `<span class="bad">RPC unavailable</span>`;
+        log.textContent = `Could not reach local Canopy query RPC.\n${String(err)}\n\nStart Canopy with the TypeScript plugin, then check again.`;
+      }
+    });
+
+    give.addEventListener("click", submitExampleVibe);
+    seed.addEventListener("click", runExampleFlow);
+    reset.addEventListener("click", resetDemo);
+    renderProfiles();
+    renderFeed();
+  </script>
+</body>
+</html>
