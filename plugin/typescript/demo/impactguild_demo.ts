@@ -1,17 +1,13 @@
 import { randomBytes } from 'crypto';
-import { bls12_381 } from '@noble/curves/bls12-381.js';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore - generated protobuf module is CommonJS
 import protoRoot from '../src/proto/index.cjs';
 
 const types = protoRoot.types;
-const google = protoRoot.google;
 
 const QUERY_RPC_URL = process.env.CANOPY_QUERY_RPC_URL || 'http://localhost:50002';
 const ADMIN_RPC_URL = process.env.CANOPY_ADMIN_RPC_URL || 'http://localhost:50003';
-const NETWORK_ID = BigInt(process.env.CANOPY_NETWORK_ID || '1');
-const CHAIN_ID = BigInt(process.env.CANOPY_CHAIN_ID || '1');
 const TEST_PASSWORD = process.env.CANOPY_DEMO_PASSWORD || 'impactguild-demo-password';
 const DEMO_GUILD_ID = Number(process.env.IMPACTGUILD_DEMO_GUILD_ID || '1');
 const DEMO_QUEST_ID = Number(process.env.IMPACTGUILD_DEMO_QUEST_ID || '1');
@@ -30,10 +26,6 @@ function randomSuffix(): string {
 
 function hexToBase64(hexStr: string): string {
     return Buffer.from(hexStr, 'hex').toString('base64');
-}
-
-function hexToBytes(hexStr: string): Uint8Array {
-    return new Uint8Array(Buffer.from(hexStr, 'hex'));
 }
 
 function bytesToHex(bytes: Uint8Array): string {
@@ -208,7 +200,7 @@ function buildMessageBytes(msgType: string, msgJSON: Record<string, unknown>): U
                     contributorAddress: Buffer.from(msgJSON.contributorAddress as string, 'base64'),
                     guildId: msgJSON.guildId,
                     questId: msgJSON.questId,
-                    proofURI: msgJSON.proofURI,
+                    proofUri: msgJSON.proofURI,
                     note: msgJSON.note
                 })
             ).finish();
@@ -228,7 +220,7 @@ function buildMessageBytes(msgType: string, msgJSON: Record<string, unknown>): U
                     toAddress: Buffer.from(msgJSON.toAddress as string, 'base64'),
                     guildId: msgJSON.guildId,
                     badgeName: msgJSON.badgeName,
-                    badgeURI: msgJSON.badgeURI
+                    badgeUri: msgJSON.badgeURI
                 })
             ).finish();
         case 'create_gate':
@@ -262,67 +254,30 @@ function buildMessageBytes(msgType: string, msgJSON: Record<string, unknown>): U
     }
 }
 
-function getSignBytes(
-    msgType: string,
-    msgTypeUrl: string,
-    msgBytes: Uint8Array,
-    time: bigint,
-    createdHeight: bigint,
-    fee: bigint
-): Uint8Array {
-    const anyMsg = google.protobuf.Any.create({
-        type_url: msgTypeUrl,
-        value: msgBytes
-    });
-    const tx = types.Transaction.create({
-        messageType: msgType,
-        msg: anyMsg,
-        signature: null,
-        createdHeight: Number(createdHeight),
-        time: Number(time),
-        fee: Number(fee),
-        networkId: Number(NETWORK_ID),
-        chainId: Number(CHAIN_ID)
-    });
-    return types.Transaction.encode(tx).finish();
-}
-
-function signBLS(privateKeyHex: string, message: Uint8Array): Uint8Array {
-    const hashedPoint = bls12_381.longSignatures.hash(message);
-    const signaturePoint = bls12_381.longSignatures.sign(hashedPoint, hexToBytes(privateKeyHex));
-    return bls12_381.longSignatures.Signature.toBytes(signaturePoint);
-}
-
 async function buildSignAndSendTx(
     signerKey: KeyGroup,
     msgType: string,
     msgJSON: Record<string, unknown>,
     fee: bigint,
-    height: bigint
+    _height: bigint
 ): Promise<string> {
     const msgTypeUrl = getTypeUrl(msgType);
     const msgBytes = buildMessageBytes(msgType, msgJSON);
-    const txTime = BigInt(Date.now() * 1000);
-    const signBytes = getSignBytes(msgType, msgTypeUrl, msgBytes, txTime, height, fee);
-    const signature = signBLS(signerKey.privateKey, signBytes);
 
+    // The local admin RPC signs canonical bytes inside Canopy's keystore.
+    // This uses the same BDN signature implementation as the node itself.
     const tx = {
         type: msgType,
         msgTypeUrl,
         msgBytes: bytesToHex(msgBytes),
-        signature: {
-            publicKey: signerKey.publicKey,
-            signature: bytesToHex(signature)
-        },
-        time: Number(txTime),
-        createdHeight: Number(height),
         fee: Number(fee),
         memo: '',
-        networkID: Number(NETWORK_ID),
-        chainID: Number(CHAIN_ID)
+        submit: true,
+        address: signerKey.address,
+        password: TEST_PASSWORD
     };
 
-    const respBody = await postRawJSON(`${QUERY_RPC_URL}/v1/tx`, JSON.stringify(tx, null, 2));
+    const respBody = await postRawJSON(`${ADMIN_RPC_URL}/v1/admin/tx-plugin`, JSON.stringify(tx, null, 2));
     return JSON.parse(respBody) as string;
 }
 

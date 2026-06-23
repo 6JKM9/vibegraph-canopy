@@ -52,10 +52,10 @@ is_running() {
     if [ -z "$pid" ] || ! [[ "$pid" =~ ^[0-9]+$ ]]; then
         return 1
     fi
-    # Check if process exists and is running our Node.js script
-    if ps -p "$pid" > /dev/null 2>&1; then
-        # Verify it's actually our Node.js script
-        if get_process_cmd "$pid" | grep -q "node.*dist/main.js"; then
+    # Alpine's BusyBox ps does not support all GNU process filters, so use
+    # /proc to confirm that our Node.js plugin process is still alive.
+    if kill -0 "$pid" > /dev/null 2>&1 && [ -r "/proc/$pid/cmdline" ]; then
+        if tr '\0' ' ' < "/proc/$pid/cmdline" | grep -q "node.*dist/main.js"; then
             return 0
         fi
     fi

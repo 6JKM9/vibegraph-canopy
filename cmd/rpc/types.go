@@ -207,6 +207,19 @@ type txSend struct {
 	fromFields
 }
 
+// pluginTxRequest is a locally signed raw plugin transaction. The node's admin
+// keystore signs the exact transaction bytes, then optionally submits it.
+type pluginTxRequest struct {
+	Type       string       `json:"type"`
+	MsgTypeURL string       `json:"msgTypeUrl"`
+	MsgBytes   lib.HexBytes `json:"msgBytes"`
+	Fee        uint64       `json:"fee"`
+	Memo       string       `json:"memo"`
+	Submit     bool         `json:"submit"`
+	Password   string       `json:"password"`
+	Address    lib.HexBytes `json:"address"`
+}
+
 type txSendVesting struct {
 	Fee                uint64 `json:"fee"`
 	Amount             uint64 `json:"amount"`

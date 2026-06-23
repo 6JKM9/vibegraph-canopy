@@ -1679,7 +1679,8 @@ function readFirst(response: any, queryId: Long): Uint8Array | null {
     for (const result of response?.results || []) {
         const qid = result.queryId as Long;
         if (qid.equals(queryId)) {
-            return result.entries?.[0]?.value || null;
+            const value = result.entries?.[0]?.value as Uint8Array | undefined;
+            return value && value.length > 0 ? value : null;
         }
     }
     return null;

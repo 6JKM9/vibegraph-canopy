@@ -44,7 +44,14 @@ The demo script interacts with a local Canopy chain through:
 - `50002` for transaction/query RPC
 - `50003` for admin keystore RPC
 
-Run:
+Start the local TypeScript-plugin node from the repository root:
+
+```bash
+docker build -f plugin/typescript/Dockerfile -t impactguild-canopy .
+docker run --rm -p 50002:50002 -p 50003:50003 impactguild-canopy ./canopy --password impactguild-local-demo --nickname impactguild-validator start
+```
+
+Then, in another terminal, run:
 
 ```bash
 cd plugin/typescript
@@ -57,6 +64,16 @@ For the cleanest recording, run this on a fresh local chain so the first guild, 
 
 ```bash
 IMPACTGUILD_DEMO_GUILD_ID=2 IMPACTGUILD_DEMO_QUEST_ID=2 IMPACTGUILD_DEMO_PROOF_ID=2 IMPACTGUILD_DEMO_GATE_ID=2 npm run demo:impactguild
+```
+
+PowerShell equivalent:
+
+```powershell
+$env:IMPACTGUILD_DEMO_GUILD_ID=2
+$env:IMPACTGUILD_DEMO_QUEST_ID=2
+$env:IMPACTGUILD_DEMO_PROOF_ID=2
+$env:IMPACTGUILD_DEMO_GATE_ID=2
+npm run demo:impactguild
 ```
 
 ## Suggested Discord Submission

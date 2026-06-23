@@ -21,6 +21,7 @@ import (
 	"github.com/shirou/gopsutil/mem"
 	"github.com/shirou/gopsutil/net"
 	"github.com/shirou/gopsutil/process"
+	"google.golang.org/protobuf/types/known/anypb"
 )
 
 // Keystore responds with the local keystore
@@ -135,6 +136,47 @@ func (s *Server) TransactionSend(w http.ResponseWriter, r *http.Request, _ httpr
 		// Create and return the transaction to be sent
 		return fsm.NewSendTransaction(p, toAddress, ptr.Amount, s.config.NetworkID, s.config.ChainId, ptr.Fee, s.controller.ChainHeight(), ptr.Memo)
 	})
+}
+
+// TransactionPlugin signs a raw plugin message with the local keystore and
+// submits it through the node's normal transaction pipeline.
+func (s *Server) TransactionPlugin(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	ptr := new(pluginTxRequest)
+	if !unmarshal(w, r, ptr) {
+		return
+	}
+	if ptr.Type == "" || ptr.MsgTypeURL == "" || len(ptr.MsgBytes) == 0 {
+		write(w, fmt.Errorf("type, msgTypeUrl, and msgBytes are required"), http.StatusBadRequest)
+		return
+	}
+	keystore, ok := newKeystore(w, s.config.DataDirPath)
+	if !ok {
+		return
+	}
+	privateKey, err := keystore.GetKey(ptr.Address, ptr.Password)
+	if err != nil {
+		write(w, err, http.StatusBadRequest)
+		return
+	}
+	tx := &lib.Transaction{
+		MessageType:   ptr.Type,
+		Msg:           &anypb.Any{TypeUrl: ptr.MsgTypeURL, Value: ptr.MsgBytes},
+		CreatedHeight: s.controller.ChainHeight(),
+		Time:          uint64(time.Now().UnixMicro()),
+		Fee:           ptr.Fee,
+		Memo:          ptr.Memo,
+		NetworkId:     s.config.NetworkID,
+		ChainId:       s.config.ChainId,
+	}
+	if err = tx.Sign(privateKey); err != nil {
+		write(w, err, http.StatusBadRequest)
+		return
+	}
+	if ptr.Submit {
+		s.submitTxs(w, []lib.TransactionI{tx})
+		return
+	}
+	write(w, tx, http.StatusOK)
 }
 
 // TransactionSendVesting sends an amount to another address with a recipient vesting schedule.
